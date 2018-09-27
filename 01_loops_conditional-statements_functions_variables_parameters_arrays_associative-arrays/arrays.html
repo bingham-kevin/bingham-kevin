@@ -5,14 +5,29 @@
 <head>
   <meta charset="utf-8">
   <title>Loops</title>
-  <meta name="Kevin Bingham">
+  <meta name="author" content="Kevin Bingham">
+  <meta name="description" content="javascript code examples-arrays">
 </head>
 
 <body>
   <div id="arrays">
     <h1>Arrays</h1>
+    <div id=array>
 
+    </div>
   </div>
+  <!--javascript code-->
+  <script>
+    var cities = ['Los Angeles', 'New York', 'Chicago', 'Phoenix', 'Seattle', 'Denver', 'Atlana'];
+    var cityName = '';
+    var x = 0;
+    for (city in cities) {
+      cityName += '<p>City at index[' + x + '] is ' +
+        cities[x] + '.</p>'
+      x++;
+    }
+    document.getElementById('array').innerHTML = cityName;
+  </script>
 </body>
 
 </html>

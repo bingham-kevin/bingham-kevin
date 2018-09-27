@@ -5,17 +5,66 @@
 <head>
   <meta charset="utf-8">
   <title>Loops</title>
-  <meta name="Kevin Bingham">
+  <meta name="author" content="Kevin Bingham">
+  <meta name="description" content="javascript code examples-loops">
+
 </head>
 
 <body>
-  <div id="loops">
-    <h1>Loops</h1>
-    <script>
-    </script>
+  <h1>Loops</h1>
+  <div id=forloop>
+    <h2>For Loop</h2>
     <p>
+      var i = 0;<br>
+      var x = 0;<br>
+      <br>
+      for (i; i < 10; i++) {<br>
+        x += 1;<br>
+        console.log(x);<br>
+        };<br>
+    </p>
+    <p>
+      <h3>Loop Results</h3>
+    </p>
+    <p id=loopresults>
+
     </p>
   </div>
+  <div id=forinloop>
+    <h2>For/In Loop</h2>
+    <p>
+      var i = 0;<br>
+      var x = 0;<br>
+      <br>
+      for (i; i < 10; i++) {<br>
+        x += 1;<br>
+        console.log(x);<br>
+        };<br>
+    </p>
+    <p>
+      <h3>Loop Results</h3>
+    </p>
+    <p id=forinresults>
+    </p>
+  </div>
+
+  <!--javscript-->
+  <script>
+    var x = '';
+    for (var i = 0; i < 10; i++) {
+      x += '<b>loop number: </b>' + i + '<br>';
+      document.getElementById('loopresults').innerHTML = x;
+    };
+
+    var fruits = ['banana', 'apple', 'orange', 'strawberry', 'peach'];
+    var y = 0;
+    var fruit = '';
+    for (x in fruits) {
+      fruit += '<b>Fruit at index [' + y + ']: </b>' + fruits[x] + '<br>';
+      y++;
+      document.getElementById('forinresults').innerHTML = fruit;
+    };
+  </script>
 </body>
 
 </html>
