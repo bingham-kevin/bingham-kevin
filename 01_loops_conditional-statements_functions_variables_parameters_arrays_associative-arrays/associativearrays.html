@@ -4,7 +4,7 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Loops</title>
+  <title>Associative Arrays</title>
   <meta name="author" content="Kevin Bingham">
   <meta name="description" content="javascript code examples-associativearrays">
   <script>
@@ -15,8 +15,35 @@
 <body>
   <div id="associativearrays">
     <h1>Associative Arrays</h1>
-
+    <p id="carobjects">
+      A coupe has <span id=coupedoor></span> doors.<br>
+      A sedan has <span id=sedandoor></span> doors.
+    </p>
   </div>
+
+  <!--javascript code-->
+  <script>
+    var sedan = {
+      'type': 'car',
+      'doors': 'four',
+      'transmission': 'automatic',
+      'fuel': 'gas'
+    };
+    var truck = {
+      'type': 'pickup',
+      'doors': 'four',
+      'transmission': 'automatic',
+      'fuel': 'diesel'
+    };
+    var coupe = {
+      'type': 'sports car',
+      'doors': 'two',
+      'transmission': 'manual',
+      'fuel': 'gas'
+    };
+    document.getElementById('coupedoor').innerHTML = coupe['doors'];
+    document.getElementById('sedandoor').innerHTML = sedan['doors'];
+  </script>
 </body>
 
 </html>
