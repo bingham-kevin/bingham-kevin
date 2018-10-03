@@ -7,16 +7,45 @@
   <title>Conditional Statements</title>
   <meta name="author" content="Kevin Bingham">
   <meta name="description" content="javascript code examples-conditionalstatents">
-  <script>
-
-  </script>
 </head>
 
 <body>
   <div id="conditionals">
     <h1>Conditional Statements</h1>
-
+    <div>
+      <h2>if/else statements</h2>
+      <p>
+        <span id=example1></span>
+      </p>
+    </div>
+    <div>
+      <h2>if/else if/else statements</h2>
+      <p>
+        <span id=example2></span>
+      </p>
+    </div>
   </div>
+  <script>
+    //If/Else Statements
+    var value = true;
+
+    if (value == false) {
+      document.getElementById('example1').innerHTML = 'Value is <b>false</b>';
+    } else {
+      document.getElementById('example1').innerHTML = 'Value is <b>true</b>';
+    }
+
+    //If/else if/else
+    var value1 = 8;
+
+    if (value1 < 5) {
+      document.getElementById('example2').innerHTML = 'Value is less than <b>5</b>.';
+    } else if (value1 > 10) {
+      document.getElementById('example2').innerHTML = 'Value is greater than <b>10</b>.';
+    } else {
+      document.getElementById('example2').innerHTML = 'Value is between <b>5 and 10</b>.';
+    }
+  </script>
 </body>
 
 </html>

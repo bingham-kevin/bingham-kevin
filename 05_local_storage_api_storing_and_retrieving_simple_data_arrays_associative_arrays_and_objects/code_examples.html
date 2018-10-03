@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>local_storage_api_storing_and_retrieving_simple_data_arrays_associative_arrays_and_objects</title>
+  <meta name="author" content="Kevin Bingham">
+  <meta name="description" content="javascript code examples-arrays">
+</head>
+
+<body>
+  <h1>Session Storage</h1>
+  <div id=sessionsstorageexample1>
+  </div>
+  <h1>Local Storage</h1>
+  <div id=local>
+  </div>
+  <!--javascript code-->
+  <script>
+    sessionStorage.session = "Session storage is only stored while the current window is open. It is only accesible to the current window, popups and iframes in the window. It is not accesible to other windows.";
+    var session = sessionStorage.session;
+    document.getElementById('sessionsstorageexample1').innerHTML = session;
+
+    localStorage.localValue = "Local storage will store for all browser windows.";
+    var local = localStorage.localValue;
+    document.getElementById('local').innerHTML = local;
+  </script>
+</body>
+
+</html>

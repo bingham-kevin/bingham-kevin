@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>local_storage_api_storing_and_retrieving_simple_data_arrays_associative_arrays_and_objects</title>
+  <meta name="author" content="Kevin Bingham">
+  <meta name="description" content="javascript code examples-arrays">
+</head>
+
+<body>
+  <div id="storage">
+    <h1>Session Storage</h1>
+    <div id=sessionsstorageexample1>
+
+    </div>
+    <h1>Local Storage</h1>
+    <div id=localstorageexample1></div>
+    <div id=localstorageexample2></div>
+  </div>
+  <!--javascript code-->
+  <script>
+    var session = sessionStorage.session;
+    document.getElementById('sessionsstorageexample1').innerHTML = session;
+    var local = localStorage.localValue;
+    document.getElementById('localstorageexample1').innerHTML = local;
+
+    localStorage.setItem('localValue', 'A new value has been set to the localValue property.');
+    var local2 = localStorage.getItem('localValue');
+    document.getElementById('localstorageexample2').innerHTML = local2;
+  </script>
+</body>
+
+</html>
