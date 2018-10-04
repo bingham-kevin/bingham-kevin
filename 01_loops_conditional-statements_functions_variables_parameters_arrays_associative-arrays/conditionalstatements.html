@@ -15,15 +15,19 @@
     <div>
       <h2>if/else statements</h2>
       <p>
-        <span id=example1></span>
+        <span id='example1'></span>
       </p>
     </div>
     <div>
       <h2>if/else if/else statements</h2>
       <p>
-        <span id=example2></span>
+        <span id='example2'></span>
       </p>
     </div>
+  </div>
+  <div>
+    <h2>Switch Statements</h2>
+    <span id='currentMonth'></span>
   </div>
   <script>
     //If/Else Statements
@@ -45,6 +49,51 @@
     } else {
       document.getElementById('example2').innerHTML = 'Value is between <b>5 and 10</b>.';
     }
+
+    //switch statements
+    var monthNum = 10;
+    var monthName = '';
+    switch (monthNum) {
+      case 01:
+        monthName = 'January';
+        break;
+      case 02:
+        monthName = 'February';
+        break;
+      case 03:
+        monthName = 'March';
+        break;
+      case 04:
+        monthName = 'April';
+        break;
+      case 05:
+        monthName = 'May';
+        break;
+      case 06:
+        monthName = 'June';
+        break;
+      case 07:
+        monthName = 'July';
+        break;
+      case 08:
+        monthName = 'August';
+        break;
+      case 09:
+        monthName = 'September';
+        break;
+      case 10:
+        monthName = 'October';
+        break;
+      case 11:
+        monthName = 'November';
+        break;
+      case 12:
+        monthName = 'December';
+        break;
+      default:
+        monthName = 'Not a vaild month!';
+    }
+    document.getElementById('currentMonth').innerHTML = 'It is currently <b>' + monthName + '</b>.';
   </script>
 </body>
 
