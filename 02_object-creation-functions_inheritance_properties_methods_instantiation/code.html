@@ -13,17 +13,39 @@
 </head>
 
 <body>
+  <h1>Objects</h1>
   <div id="objects">
-    <h1>Objects</h1>
+    <h1>Creation</h1>
     <p id="carobjects">
       A coupe has <span id=coupedoor></span> doors.<br>
       A sedan has <span id=sedandoor></span> doors.<br>
-      <span id="convertable"></span>
+      <span id="convertable"></span><br>
+      <span id="convertable1"></span><br>
+      <span id="convertable2"></span>
+    </p>
+  </div>
+  <div id="functions">
+    <h1>Functions</h1>
+    <h3>When is the expected graduation for <i>student</i>?</h3>
+    <p>
+      <span id="graduate"></span>
+    </p>
+    <p>
+      <span id="graduate1"></span>
+    </p>
+    <h3>When is the expected graduation for <i>student1</i>?</h3>
+    <p>
+      <span id="graduate2"></span>
+    </p>
+    <h3>When <i>student2</i> start school?</h3>
+    <p>
+      <span id="graduate3"></span>
     </p>
   </div>
 
   <!--javascript code-->
   <script>
+    //creation code
     var sedan = {
       'type': 'car',
       'doors': 'four',
@@ -43,6 +65,7 @@
       'fuel': 'gas'
     };
 
+    //Adding Properties
     coupe.convertable = true;
 
     var coupeType = '';
@@ -55,6 +78,60 @@
     document.getElementById('coupedoor').innerHTML = coupe['doors'];
     document.getElementById('sedandoor').innerHTML = sedan['doors'];
     document.getElementById('convertable').innerHTML = coupeType;
+
+    //Removing Properties
+    delete coupe.convertable;
+    delete coupe["fuel"];
+    document.getElementById('convertable1').innerHTML = coupe.convertable;
+    document.getElementById('convertable2').innerHTML = coupe.fuel;
+
+    //functions
+    var student = {
+      firstName: "Michael",
+      lasName: "Dennis",
+      enrolledCourse: "CIT261",
+      graduationTerm: "Spring",
+      graduationYear: "2019",
+      graduate: function() {
+        return this.graduationTerm + " - " + this.graduationYear;
+      }
+    }
+    document.getElementById('graduate').innerHTML = student.graduate();
+    document.getElementById('graduate1').innerHTML = student.graduate;
+
+    //getters
+    var student1 = {
+      firstName: "Ethan",
+      lasName: "Clark",
+      enrolledCourse: "CIT261",
+      graduationTerm: "Spring",
+      graduationYear: "2020",
+      get graduation() {
+        return this.graduationTerm + " - " + this.graduationYear;
+      }
+    };
+    document.getElementById('graduate2').innerHTML = student1.graduation;
+
+    //setters
+    var student2 = {
+      firstName: "Harold",
+      lasName: "Green",
+      enrolledCourse: "CIT261",
+      firstEnrolled: "",
+      graduationTerm: "Spring",
+      graduationYear: "2020",
+      get graduation() {
+        return this.graduationTerm + " - " + this.graduationYear;
+      },
+      set enrolled(enrolled) {
+        this.firstEnrolled = enrolled;
+      }
+    };
+
+    student2.enrolled = "Fall - 2016";
+    document.getElementById('graduate3').innerHTML = student2.firstEnrolled;
+
+    //constructors
   </script>
 </body>
 
