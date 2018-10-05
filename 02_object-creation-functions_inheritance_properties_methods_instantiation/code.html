@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Object Creation, Functions, Inheritance, Properties, Methods, Instantiation</title>
+  <meta name="author" content="Kevin Bingham">
+  <meta name="description" content="javascript code examples-_object-creation-functions_inheritance_properties_methods_instantiations">
+  <script>
+
+  </script>
+</head>
+
+<body>
+  <div id="objects">
+    <h1>Objects</h1>
+    <p id="carobjects">
+      A coupe has <span id=coupedoor></span> doors.<br>
+      A sedan has <span id=sedandoor></span> doors.<br>
+      <span id="convertable"></span>
+    </p>
+  </div>
+
+  <!--javascript code-->
+  <script>
+    var sedan = {
+      'type': 'car',
+      'doors': 'four',
+      'transmission': 'automatic',
+      'fuel': 'gas'
+    };
+    var truck = {
+      'type': 'pickup',
+      'doors': 'four',
+      'transmission': 'automatic',
+      'fuel': 'diesel'
+    };
+    var coupe = {
+      'type': 'sports car',
+      'doors': 'two',
+      'transmission': 'manual',
+      'fuel': 'gas'
+    };
+
+    coupe.convertable = true;
+
+    var coupeType = '';
+    if (coupe.convertable == true) {
+      coupeType = 'The coupe is a convertable.'
+    } else {
+      coupeType = 'The coupe is a hardtop.'
+    };
+
+    document.getElementById('coupedoor').innerHTML = coupe['doors'];
+    document.getElementById('sedandoor').innerHTML = sedan['doors'];
+    document.getElementById('convertable').innerHTML = coupeType;
+  </script>
+</body>
+
+</html>

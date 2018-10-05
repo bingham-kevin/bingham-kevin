@@ -14,7 +14,17 @@
     <h2>Arrays</h2>
     <span id=array></span>
     <h2>Accessing Specific Item</h2>
+    <h3>Item at Index 3</h3>
     <span id=index></span>
+    <h3>First Item</h3>
+    <span id=firstItem></span>
+    <h3>Last Item</h3>
+    <span id=lastItem></span>
+    <h2>Array Methods</h2>
+    <h3>Change array to string</h3>
+    <span id=citiesString></span>
+    <h3>Join elements with delimiter</h3>
+    <span id=citiesJoin></span>
   </div>
   <!--javascript code-->
   <script>
@@ -26,8 +36,17 @@
         cities[x] + '.</p>'
       x++;
     }
+    var first = cities[0];
+    var last = cities[cities.length - 1];
+    var citiesString = cities.toString();
+    var citiesJoined = cities.join(" -> ");
+
     document.getElementById('array').innerHTML = cityName;
     document.getElementById('index').innerHTML = cities[3];
+    document.getElementById('firstItem').innerHTML = first;
+    document.getElementById('lastItem').innerHTML = last;
+    document.getElementById('citiesString').innerHTML = citiesString;
+    document.getElementById('citiesJoin').innerHTML = citiesJoined;
   </script>
 </body>
 

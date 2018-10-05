@@ -15,34 +15,28 @@
 <body>
   <div id="associativearrays">
     <h1>Associative Arrays</h1>
-    <p id="carobjects">
-      A coupe has <span id=coupedoor></span> doors.<br>
-      A sedan has <span id=sedandoor></span> doors.
+    <h2>Index</h2>
+    <p>
+      <span id="index"></span>
+    </p>
+    <h2>Property Name</h2>
+    <p>
+      <span id="propName"></span>
     </p>
   </div>
 
   <!--javascript code-->
   <script>
-    var sedan = {
-      'type': 'car',
-      'doors': 'four',
-      'transmission': 'automatic',
-      'fuel': 'gas'
-    };
-    var truck = {
-      'type': 'pickup',
-      'doors': 'four',
-      'transmission': 'automatic',
-      'fuel': 'diesel'
-    };
-    var coupe = {
-      'type': 'sports car',
-      'doors': 'two',
-      'transmission': 'manual',
-      'fuel': 'gas'
-    };
-    document.getElementById('coupedoor').innerHTML = coupe['doors'];
-    document.getElementById('sedandoor').innerHTML = sedan['doors'];
+    var cars = [];
+    cars["truck"] = "Chevy";
+    cars["sedan"] = "Ford";
+    cars["coupe"] = "Honda";
+
+    var indexOne = cars[1];
+    var propName = cars["coupe"];
+
+    document.getElementById('index').innerHTML = indexOne;
+    document.getElementById('propName').innerHTML = propName;
   </script>
 </body>
 
