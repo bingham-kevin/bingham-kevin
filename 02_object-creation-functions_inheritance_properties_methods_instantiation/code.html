@@ -13,6 +13,9 @@
 </head>
 
 <body>
+  <h1>Object Creation, Functions, Inheritance, Properties, Methods, Instantiation</h1>
+  <br>
+  <br>
   <h1>Objects</h1>
   <div id="objects">
     <h1>Creation</h1>
@@ -40,6 +43,10 @@
     <h3>When <i>student2</i> start school?</h3>
     <p>
       <span id="graduate3"></span>
+    </p>
+    <h3>Constructor <i>Student</i></h3>
+    <p>
+      <span id="graduate4"></span>
     </p>
   </div>
 
@@ -132,6 +139,19 @@
     document.getElementById('graduate3').innerHTML = student2.firstEnrolled;
 
     //constructors
+
+    function Student(first, last, enroll, graduationTerm, graduationYear) {
+      this.firstName = first;
+      this.lastName = last;
+      this.graduationTerm = graduationTerm;
+      this.graduationYear = graduationYear;
+      this.name = function() {
+        return this.firstName + ' ' + this.lastName
+      };
+    }
+
+    var student3 = new Student("Eric", "Hulsey", "Winter", "2021");
+    document.getElementById('graduate4').innerHTML = student3.name();
   </script>
 </body>
 

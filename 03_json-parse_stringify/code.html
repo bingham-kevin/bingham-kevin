@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>JSON Parse Strinify</title>
+  <meta name="author" content="Kevin Bingham">
+  <meta name="description" content="javascript code examples-json_parse_stringify">
+</head>
+
+<body>
+  <h1>JSON Parse</h1>
+  <p>
+    var stringOfText = '{"car":"Sedan","make":"BMW","model":"530i"}';<br>
+    var convertObj = JSON.parse(stringOfText);<br>
+    document.getElementById('parse').innerHTML = convertObj.make;<br>
+    <br>
+    <b><span id=parse></span></b>
+  </p>
+  <h1>JSON Stringify</h1>
+  <p>
+    var objectToConvert = {<br>
+    "type": "Truck",<br>
+    "make": "Chevrolet",<br>
+    "model": "Silverado"<br>
+    };<br>
+    <br>
+
+    var jsonString = JSON.stringify(objectToConvert);<br>
+    <br>
+    <b><span id=stringify></span></b>
+  </p>
+
+  <script>
+    var stringOfText = '{"type":"Sedan","make":"BMW","model":"530i"}'
+    var convertObj = JSON.parse(stringOfText);
+    document.getElementById('parse').innerHTML = convertObj.make;
+
+    var objectToConvert = {
+      "type": "Truck",
+      "make": "Chevrolet",
+      "model": "Silverado"
+    };
+    var jsonString = JSON.stringify(objectToConvert);
+    document.getElementById('stringify').innerHTML = jsonString;
+  </script>
+</body>
+
+</html>

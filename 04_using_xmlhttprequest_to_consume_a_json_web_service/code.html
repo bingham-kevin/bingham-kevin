@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Using XMLHttprequest to Consume a JSON Web Service</title>
+  <meta name="author" content="Kevin Bingham">
+  <meta name="description" content="javascript code examples-using_xmlhttprequest_to_consume_a_json_web_service">
+</head>
+
+<body>
+  <h1>XMLHttprequest 'GET'</h1>
+  <p>
+    var url = "https://jsonplaceholder.typicode.com/users";<br>
+    var xhr = new XMLHttpRequest();<br>
+    var objectResponse;<br><br>
+    xhr.onreadystatechange = function() {<br>
+    if (this.readyState == 4 && this.status == 200) {<br>
+    objectResponse = JSON.parse(this.responseText);<br>
+    document.getElementById('getRequest').innerHTML = objectResponse[1].username;<br>
+    } else if (this.readyState == 4 && this.status != 200) {<br>
+    console.log('There was an error ' + this.status + this.statusText)<br>
+    }<br>
+    }<br>
+    xhr.open('GET', url, true);<br>
+    xhr.send();<br>
+  </p>
+  <button onclick="getRequest();">GET</button><br>
+  <b><span id=getRequest></span></b>
+  <h1>XMLHttpRequest 'POST'</h1>
+  <p>
+    var url = "https://jsonplaceholder.typicode.com/users";<br>
+    var xhr = new XMLHttpRequest();<br>
+    var data = JSON.stringify({<br>
+    "id": 2,<br>
+    "name": "Ervin Howell",<br>
+    "username": "Antonette",<br>
+    "email": "Shanna@melissa.tv",<br>
+    "address": {<br>
+    "street": "Victor Plains",<br>
+    "suite": "Suite 879",<br>
+    "city": "Wisokyburgh",<br>
+    "zipcode": "90566-7771",<br>
+    },<br>
+    "phone": "010-692-6593 x09125",<br>
+    "website": "anastasia.net"<br>
+    });<br><br>
+    xhr.responseType = 'json';<br>
+    xhr.onreadystatechange = function() {<br>
+    return xhr.response;<br>
+    };<br><br>
+    xhr.open('POST', url, true);<br>
+    xhr.send(data);<br>
+    }; <br>
+  </p>
+  <button onclick="postRequest();">POST</button><br>
+  <b><span id=postRequest></span></b>
+  <script>
+    //XMLHttpRequest GET
+    function getRequest() {
+      var url = "https://jsonplaceholder.typicode.com/users";
+      var xhr = new XMLHttpRequest();
+      var objectResponse;
+      xhr.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          objectResponse = JSON.parse(this.responseText);
+          document.getElementById('getRequest').innerHTML = objectResponse[1].username;
+        } else if (this.readyState == 4 && this.status != 200) {
+          console.log('There was an error ' + this.status + this.statusText)
+        }
+      }
+      xhr.open('GET', url, true);
+      xhr.send();
+    };
+    //XMLHttpRequest POST
+    function postRequest() {
+      var url = "https://jsonplaceholder.typicode.com/users";
+      var xhr = new XMLHttpRequest();
+      var data = JSON.stringify({
+        "id": 2,
+        "name": "Ervin Howell",
+        "username": "Antonette",
+        "email": "Shanna@melissa.tv",
+        "address": {
+          "street": "Victor Plains",
+          "suite": "Suite 879",
+          "city": "Wisokyburgh",
+          "zipcode": "90566-7771",
+        },
+        "phone": "010-692-6593 x09125",
+        "website": "anastasia.net"
+      });
+      xhr.responseType = 'json';
+      xhr.onreadystatechange = function() {
+        document.getElementById('postRequest').innerHTML = 'POST completed!';
+        return xhr.response;
+      };
+      xhr.open('POST', url, true);
+      xhr.send(data);
+    };
+  </script>
+
+</body>
+
+</html>
