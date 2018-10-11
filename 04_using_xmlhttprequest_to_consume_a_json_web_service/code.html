@@ -32,7 +32,7 @@
   <p>
     var url = "https://jsonplaceholder.typicode.com/users";<br>
     var xhr = new XMLHttpRequest();<br>
-    var data = JSON.stringify({<br>
+    var object1 = {<br>
     "id": 2,<br>
     "name": "Ervin Howell",<br>
     "username": "Antonette",<br>
@@ -45,7 +45,8 @@
     },<br>
     "phone": "010-692-6593 x09125",<br>
     "website": "anastasia.net"<br>
-    });<br><br>
+    };<br>
+    var data = JSON.stringify(object1);<br><br>
     xhr.responseType = 'json';<br>
     xhr.onreadystatechange = function() {<br>
     return xhr.response;<br>
@@ -77,7 +78,7 @@
     function postRequest() {
       var url = "https://jsonplaceholder.typicode.com/users";
       var xhr = new XMLHttpRequest();
-      var data = JSON.stringify({
+      var object1 = {
         "id": 2,
         "name": "Ervin Howell",
         "username": "Antonette",
@@ -90,7 +91,8 @@
         },
         "phone": "010-692-6593 x09125",
         "website": "anastasia.net"
-      });
+      };
+      var data = JSON.stringify(object1);
       xhr.responseType = 'json';
       xhr.onreadystatechange = function() {
         document.getElementById('postRequest').innerHTML = 'POST completed!';
