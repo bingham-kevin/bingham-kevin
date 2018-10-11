@@ -16,10 +16,10 @@
     var xhr = new XMLHttpRequest();<br>
     var objectResponse;<br><br>
     xhr.onreadystatechange = function() {<br>
-    if (this.readyState == 4 && this.status == 200) {<br>
+    if (xhr.readyState == XMLHttpRequest.DONE) {<br>
     objectResponse = JSON.parse(this.responseText);<br>
     document.getElementById('getRequest').innerHTML = objectResponse[1].username;<br>
-    } else if (this.readyState == 4 && this.status != 200) {<br>
+    } else if (xhr.readyState != XMLHttpRequest.DONE) {<br>
     console.log('There was an error ' + this.status + this.statusText)<br>
     }<br>
     }<br>
@@ -63,10 +63,10 @@
       var xhr = new XMLHttpRequest();
       var objectResponse;
       xhr.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
+        if (xhr.readyState == XMLHttpRequest.DONE) {
           objectResponse = JSON.parse(this.responseText);
           document.getElementById('getRequest').innerHTML = objectResponse[1].username;
-        } else if (this.readyState == 4 && this.status != 200) {
+        } else if (xhr.readyState != XMLHttpRequest.DONE) {
           console.log('There was an error ' + this.status + this.statusText)
         }
       }
