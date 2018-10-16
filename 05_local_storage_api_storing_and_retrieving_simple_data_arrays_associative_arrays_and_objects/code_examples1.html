@@ -4,31 +4,37 @@
 
 <head>
   <meta charset="utf-8">
-  <title>local_storage_api_storing_and_retrieving_simple_data_arrays_associative_arrays_and_objects</title>
+  <title>Local Storage API Storing and Retrieving Simple Data Arrays Associative Arrays and Objects</title>
   <meta name="author" content="Kevin Bingham">
   <meta name="description" content="javascript code examples-arrays">
 </head>
 
 <body>
   <div id="storage">
-    <h1>Session Storage</h1>
-    <div id=sessionsstorageexample1>
+    <h1>Local Storage Basics</h1>
+    <h2>Session Storage</h2>
+    document.getElementById('sessionsstorageexample1').innerHTML = sessionStorage.session;<br><br>
 
-    </div>
-    <h1>Local Storage</h1>
-    <div id=localstorageexample1></div>
-    <div id=localstorageexample2></div>
+    <span id=sessionsstorageexample1></span>
+
+    <h2>Local Storage</h2>
+    document.getElementById('localstorageexample1').innerHTML = localStorage.allWindows;<br><br>
+
+    allWindows = <b><span id=localstorageexample1></span></b><br>
+
+    <h2>allWindows value has changed</h2>
+    localStorage.setItem('allWindows', 'A new value has been set to the allWindows property.');<br><br>
+    allWindows = <b><span id=localstorageexample2></span></b>
   </div>
   <!--javascript code-->
   <script>
-    var session = sessionStorage.session;
-    document.getElementById('sessionsstorageexample1').innerHTML = session;
-    var local = localStorage.localValue;
-    document.getElementById('localstorageexample1').innerHTML = local;
+    document.getElementById('sessionsstorageexample1').innerHTML = sessionStorage.session;
 
-    localStorage.setItem('localValue', 'A new value has been set to the localValue property.');
-    var local2 = localStorage.getItem('localValue');
-    document.getElementById('localstorageexample2').innerHTML = local2;
+    document.getElementById('localstorageexample1').innerHTML = localStorage.allWindows;
+
+    localStorage.setItem('allWindows', 'A new value has been set to the allWindows property.');
+
+    document.getElementById('localstorageexample2').innerHTML = localStorage.allWindows;
   </script>
 </body>
 

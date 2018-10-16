@@ -4,27 +4,134 @@
 
 <head>
   <meta charset="utf-8">
-  <title>local_storage_api_storing_and_retrieving_simple_data_arrays_associative_arrays_and_objects</title>
+  <title>Local Storage API Storing and Retrieving Simple Data Arrays Associative Arrays and Objects</title>
   <meta name="author" content="Kevin Bingham">
   <meta name="description" content="javascript code examples-arrays">
 </head>
 
 <body>
-  <h1>Session Storage</h1>
+  <h1>Local Storage Basics</h1>
+  <h2>Session Storage</h2>
   <div id=sessionsstorageexample1>
-  </div>
+  </div><br>
+  <input type="button" value="Open Pop Up" onclick="popup()">
   <h1>Local Storage</h1>
-  <div id=local>
+  <div>
+    <p>
+      <span id=local></span>
+    </p>
+    <p>
+      <span id=local2></span>
+    </p>
+    <p>
+      <span id=local3></span>
+    </p>
+    <h3>allWindows value</h3>
+    allWindows = <span id=allWindowsStorage></span>
   </div>
+  <h1>Local Storage Arrays</h1>
+  <div>
+    <h2>Array</h2>
+    <span id=localArray></span>
+    <h2>Storing Array Locally</h2>
+    <p>
+      var cars = ['Honda', 'Toyota', 'Ford', 'BMW', 'KIA', 'Chevrolet'];</p>
+    <p>
+      var carsJSON = JSON.stringify(cars);<br>
+    </p>
+    <p>
+      localStorage.setItem('carsStorage', carsJSON);
+    </p>
+    <h2>Accessing value from locally stored array</h2>
+    <p>
+      var carsArrayFromStorage = JSON.parse(localStorage.carsStorage);
+    </p>
+    <p>
+      carsArrayFromStorage[2] =
+      <b><span id=localStorageArray></span></b>
+    </p>
+  </div>
+  <h1>Objects in Local Storage</h1>
+  <div>
+    <p>
+      <b>var vehicle1</b> = {<br>
+      <b>"type":</b> "Truck",<br>
+      <b>"make":</b> "Chevrolet",<br>
+      <b>"model":</b> "Silverado"<br>
+      };<br>
+    </p>
+    vehicle1['make'] = <span id=objectFromStorage></span>
+    <h2>Delete Storage</h2>
+    <h3>Delete Stored Value</h3>
+    <input type="button" value="Delete Object" onclick="deleteStorage()">
+    <p>
+      delete localStorage.carsStorage;<br>
+      <b><span id=deletedObject></span></b>
+    </p>
+    <h3>Delete All Values</h3>
+    <input type="button" value="Clear Local Storage" onclick="clearAll()">
+    <p>
+      localStorage.clear();<br>
+      <b><span id=cleared></span></b>
+    </p>
+  </div>
+
   <!--javascript code-->
   <script>
-    sessionStorage.session = "Session storage is only stored while the current window is open. It is only accesible to the current window, popups and iframes in the window. It is not accesible to other windows.";
+    function popup() {
+      window.open("./popup.html");
+    }
+
+    sessionStorage.session = "Session storage is only stored while the current window is open. It is only accesible to the current window, popups and iframes in the window. It is not accessible to other windows.";
+
     var session = sessionStorage.session;
     document.getElementById('sessionsstorageexample1').innerHTML = session;
 
-    localStorage.localValue = "Local storage will store for all browser windows.";
-    var local = localStorage.localValue;
-    document.getElementById('local').innerHTML = local;
+    //set localStorage keys
+    localStorage.localValue = "Set by localStorage.<i>value</i>";
+    localStorage.setItem('setItemValue', "Value set with setItem(<i>'key','value'</i>)");
+    localStorage['localValue1'] = "Set by localStorage['<i>key</i>'] = '<i>value</i>'";
+
+    document.getElementById('local').innerHTML = localStorage.localValue;
+    document.getElementById('local2').innerHTML = localStorage.setItemValue;
+    document.getElementById('local3').innerHTML = localStorage.localValue1;
+
+    localStorage.allWindows = "Local storage will store for all browser windows.";
+    document.getElementById('allWindowsStorage').innerHTML = localStorage.allWindows;
+
+
+    //arrays localStorage
+    var cars = ['Honda', 'Toyota', 'Ford', 'BMW', 'KIA', 'Chevrolet'];
+    var carsJSON = JSON.stringify(cars);
+    document.getElementById('localArray').innerHTML = carsJSON;
+    localStorage.setItem('carsStorage', carsJSON);
+
+    var carsArrayFromStorage = JSON.parse(localStorage.carsStorage);
+
+    document.getElementById('localStorageArray').innerHTML = carsArrayFromStorage[2];
+
+
+    //objects localStorage
+    var vehicle1 = {
+      "type": "Truck",
+      "make": "Chevrolet",
+      "model": "Silverado"
+    };
+
+    localStorage.setItem('firstVehicle', JSON.stringify(vehicle1));
+
+    var objectMake = JSON.parse(localStorage.getItem('firstVehicle'));
+    document.getElementById('objectFromStorage').innerHTML = objectMake['make'];
+
+    function deleteStorage() {
+      delete localStorage.carsStorage;
+      document.getElementById('deletedObject').innerHTML = localStorage.carsStorage;
+    }
+
+    function clearAll() {
+      localStorage.clear();
+      document.getElementById('cleared').innerHTML = "localStorage.length = " + localStorage.length;
+    }
   </script>
 </body>
 
