@@ -12,10 +12,14 @@
 <body>
   <div id="functions">
     <h1>Functions</h1>
-
+    <span id=function></span>
   </div>
   <script>
+    function runThis() {
+      document.getElementById('function').innerHTML = 'Display this when a function is run.';
+    };
 
+    runThis();
   </script>
 </body>
 

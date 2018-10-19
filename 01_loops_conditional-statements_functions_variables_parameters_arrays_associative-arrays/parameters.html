@@ -7,16 +7,23 @@
   <title>Parameters</title>
   <meta name="author" content="Kevin Bingham">
   <meta name="description" content="javascript code examples-parameters">
-  <script>
-
-  </script>
 </head>
 
 <body>
   <div id="parameters">
     <h1>Parameters</h1>
-
+    <input type="text" id=box1 placeholder="First Name"><br>
+    <input type="text" id=box2 placeholder="Last Name"><br>
+    <input type="button" onclick="fullname(document.getElementById('box1').value,document.getElementById('box2').value)" value="Click">
+    <div id=response>
+    </div>
   </div>
+  <script>
+    function fullname(fName, lName) {
+      var fullname = 'Hello, ' + fName + ' ' + lName + '.';
+      document.getElementById('response').innerHTML = fullname;
+    }
+  </script>
 </body>
 
 </html>

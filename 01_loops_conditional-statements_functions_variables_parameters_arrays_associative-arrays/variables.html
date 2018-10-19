@@ -15,15 +15,33 @@
 <body>
   <div id="variables">
     <h1>Variables</h1>
+    <b>Number</b><br>
+    var number = 10;<br>
+    <span id=num></span><br><br>
+    <b>String</b><br>
+    var words = 'this is a string';<br>
+    <span id=strings></span><br>
+    words='new string of words'<br>
+    <span id=newwords></span><br><br>
+    <b>Boolean</b><br>
+    var value = true;<br>
+    <span id=bool></span><br>
 
   </div>
   <script>
     //Number
     var number = 10;
     //String
-    var words = '';
+    var words = 'this is a string';
     //Boolean
     var value = true;
+
+    document.getElementById('num').innerHTML = number;
+    document.getElementById('strings').innerHTML = words;
+    document.getElementById('bool').innerHTML = value;
+
+    words = 'new string of words';
+    document.getElementById('newwords').innerHTML = words;
   </script>
 </body>
 
