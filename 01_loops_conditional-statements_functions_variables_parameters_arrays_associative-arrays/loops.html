@@ -7,7 +7,6 @@
   <title>Loops</title>
   <meta name="author" content="Kevin Bingham">
   <meta name="description" content="javascript code examples-loops">
-
 </head>
 
 <body>
@@ -16,14 +15,58 @@
     <h2>For Loop</h2>
     <h3>Loop Results</h3>
     <p id=loopresults>
-
     </p>
   </div>
+
   <div id=forinloop>
     <h2>For/In Loop</h2>
     <h3>Loop Results</h3>
-
     <p id=forinresults>
+    </p>
+  </div>
+
+  <div id=whileloop>
+    <h2>While Loop</h2>
+    <h3>Loop Results</h3>
+    <p>
+      <span id=while></span>
+    </p>
+  </div>
+
+  <div id=dowhileloop>
+    <h2>Do While Loop</h2>
+    <h3>Loop Results</h3>
+    <p>
+      <span id=do></span>
+    </p>
+  </div>
+
+  <div>
+    <h2>Break</h2>
+    var z = '';<br>
+    for (var i = 0; i &lt; 10; i++) {<br>
+    if (i == 5) {<br>
+    break;<br>
+    }<br>
+    z += 'loop number:' + i;<br>
+    document.getElementById('break').innerHTML = z;<br>
+    };<br>
+    <h3>Loop Results</h3>
+    <p>
+      <span id=break></span>
+    </p>
+    <h2>Continue</h2>
+    var y = '';<br>
+    for (var i = 0; i &lt; 10; i++) {<br>
+    if (i == 5) {<br>
+    continue;<br>
+    }<br>
+    y += 'loop number:' + i;<br>
+    document.getElementById('continue').innerHTML = y;<br>
+    };<br>
+    <h3>Loop Results</h3>
+    <p>
+      <span id=continue></span>
     </p>
   </div>
 
@@ -42,6 +85,40 @@
       fruit += '<b>Fruit at index [' + y + ']: </b>' + fruits[x] + '<br>';
       y++;
       document.getElementById('forinresults').innerHTML = fruit;
+    };
+
+    var j = 0;
+    var whileText = "";
+    while (j < 10) {
+      whileText += "Print this while 'j' is less than 10.<br>";
+      j++
+    }
+    document.getElementById('while').innerHTML = whileText;
+    var i = 0;
+    var text = "Repeat this message until i = 5.<br>";
+    var message = "";
+    do {
+      message += text;
+      i++
+    } while (i < 5);
+    document.getElementById('do').innerHTML = message;
+
+    var y = '';
+    for (var i = 0; i < 10; i++) {
+      if (i == 5) {
+        continue;
+      }
+      y += '<b>loop number: </b>' + i + '<br>';
+      document.getElementById('continue').innerHTML = y;
+    };
+
+    var z = '';
+    for (var i = 0; i < 10; i++) {
+      if (i == 5) {
+        break;
+      }
+      z += '<b>loop number: </b>' + i + '<br>';
+      document.getElementById('break').innerHTML = z;
     };
   </script>
 </body>

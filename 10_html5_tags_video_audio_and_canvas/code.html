@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>HTML5 Tags Video, Audio, & Canvas</title>
+  <meta name="author" content="Kevin Bingham">
+  <meta name="description" content="javascript code examples-html5_tags_video_audio_and_canvas">
+</head>
+
+<body>
+  <h1>HTML5 Tags Video, Audio, & Canvas</h1>
+  <div id=videoDiv>
+    <h2>Video</h2>
+    <p id=videoControls>
+      <button onclick="fullSize()">Show Video</button>
+      <button onclick="halfSize()">Half Size</button>
+      <button onclick="doubleSize()">Double Size</button>
+      <button onclick="showHideControls()">Show/Hide Controls</button>
+      <button onclick="playPause()" id="hidden" style="display:none">Play/Pause</button>
+      <button onclick="hideVideo()">Hide Video</button>
+    </p>
+    <video id="rickd" width="1">
+      <source src="video.mp4" type="video/mp4">
+      <source src="video.ogg" type="video/ogg">
+      Video not supported by browser.
+    </video>
+  </div>
+  <div id="audio">
+    <h2>Audio</h2>
+    <button onclick="loopAudio()">Loop Audio</button>
+    <span id="loopValue"></span>
+    <p>
+      <audio id="audio1" controls>
+        <source src="audio.mp3" type="audio/mp3">
+        <source src="audio.ogg" type="audio/ogg">
+        Audio not supported by your browser. Here is
+        a <a href="audio.mp3">link to the audio</a> instead.
+      </audio>
+    </p>
+  </div>
+  <div>
+    <h2>Canvas</h2>
+    <button onclick="rectangle()">Draw Rectangle</button><button onclick="drawLine()">Draw Line</button><button onclick="resetCanvas()">Reset</button><br>
+    <canvas id="canvas1" width="650" height="300" style="border:2px solid #000000;"></canvas>
+  </div>
+
+  <script>
+    //video
+    var rickroll = document.getElementById('rickd');
+
+    function fullSize() {
+      rickroll.width = 640;
+      document.getElementById('hidden').style.display = "inline";
+      rickroll.play();
+    }
+
+    function showHideControls() {
+      if (rickroll.controls == false) {
+        rickroll.controls = true;
+      } else {
+        rickroll.controls = false;
+      }
+      rickroll.play();
+    }
+
+    function playPause() {
+      if (rickroll.paused) {
+        rickroll.play();
+      } else {
+        rickroll.pause();
+      }
+    }
+
+    function halfSize() {
+      rickroll.width = 320;
+      rickroll.play();
+      rickroll.controls = false;
+    }
+
+    function doubleSize() {
+      rickroll.width = 1280;
+      rickroll.play();
+      rickroll.controls = false;
+    }
+
+    var i = 0;
+
+    function hideVideo() {
+      if (i >= 3) {
+        rickroll.pause();
+        rickroll.width = 1;
+      }
+      i++;
+    }
+
+    //audio
+    var audioId = document.getElementById('audio1');
+    var loopValue = document.getElementById('loopValue');
+
+    function loopAudio() {
+      if (audioId.loop == false) {
+        audioId.loop = true;
+        loopValue.innerHTML = "Repeat <b>ON</b>";
+      } else {
+        audioId.loop = false;
+        loopValue.innerHTML = "Repeat <b>OFF</b>";
+      }
+    }
+
+    //canvas
+    var canvas = document.getElementById('canvas1');
+    var canvasContext = canvas.getContext('2d');
+
+
+    function getRandomInt(max) {
+      return Math.floor(Math.random() * Math.floor(max));
+    }
+
+    function getRandomColor() {
+      var digits = '0123456789ABCDEF';
+      var colorValue = '#';
+      for (var i = 0; i < 6; i++) {
+        colorValue += digits[Math.floor(Math.random() * 16)];
+      }
+      return colorValue;
+    }
+
+    function rectangle() {
+      var x1 = getRandomInt(canvas.width);
+      var y1 = getRandomInt(canvas.height);
+      var x2 = getRandomInt(canvas.width);
+      var y2 = getRandomInt(canvas.height);
+      canvasContext.fillStyle = getRandomColor();
+      canvasContext.fillRect(x1, y1, x2, y2);
+    }
+
+    function drawLine() {
+      var x1 = getRandomInt(canvas.width);
+      var y1 = getRandomInt(canvas.height);
+      var x2 = getRandomInt(canvas.width);
+      var y2 = getRandomInt(canvas.height);
+      canvasContext.beginPath();
+      canvasContext.moveTo(x1, y1);
+      canvasContext.lineTo(x2, y2);
+      lineColor();
+    }
+
+    function lineColor() {
+      canvasContext.strokeStyle = getRandomColor();
+      canvasContext.stroke();
+    }
+
+    function resetCanvas() {
+      canvasContext.clearRect(0, 0, canvas.width, canvas.height);
+    }
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>DOM Manipulation Using createElement, appendChild, insertBefore, removeChild, etc.</title>
+  <meta name="author" content="Kevin Bingham">
+  <meta name="description" content="javascript code examples-dom_manipulation_using_createelement_appendchild_insertbefore_removechild_etc">
+</head>
+
+<body>
+  <h1>DOM Manipulation Using createElement, appendChild, insertBefore, removeChild, etc.</h1>
+  <div id="hello">
+    <input type="button" value="New Paragraph" onclick="createNewParagraph()"><input type="button" value="Remove Paragraph" onclick="removeParagraph()">
+  </div>
+  <script>
+    //DOM Manipulation
+
+    //Create Element
+    function createNewParagraph() {
+      var newParagraph = document.createElement('p');
+      var newText = document.createTextNode("Hello!");
+      newParagraph.appendChild(newText);
+      document.body.appendChild(newParagraph);
+    }
+
+    var paraElem = document.getElementsByTagName('p');
+
+    function removeParagraph() {
+
+    }
+  </script>
+</body>
+
+</html>

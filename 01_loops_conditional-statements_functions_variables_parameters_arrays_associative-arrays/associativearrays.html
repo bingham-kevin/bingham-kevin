@@ -7,21 +7,49 @@
   <title>Associative Arrays</title>
   <meta name="author" content="Kevin Bingham">
   <meta name="description" content="javascript code examples-associativearrays">
-  <script>
-
-  </script>
 </head>
 
 <body>
   <div id="associativearrays">
     <h1>Associative Arrays</h1>
-    <h2>Index</h2>
+    <h2>Named Index Array</h2>
+    var cars = [];<br>
+    cars["truck"] = "Chevy";<br>
+    cars["sedan"] = "Ford";<br>
+    cars["coupe"] = "Honda";<br>
+
+    <h3>Index</h3>
     <p>
-      <span id="index"></span>
+      var indexOne = cars[1];<br>
+      <b><span id="indexNamed"></span></b>
     </p>
-    <h2>Property Name</h2>
+    <h3>Property Name</h3>
     <p>
-      <span id="propName"></span>
+      var propName = cars["coupe"];<br>
+      <b><span id="propNamed"></span></b>
+    </p>
+    <h3>Full Array Length</h3>
+    <p>
+      <b><span id=fullArrayNamed></span></b>
+    </p>
+    <h2>Numbered Index Array</h2>
+    var cities = [];<br>
+    cities[0] = "Los Angeles";<br>
+    cities[1] = "New York";<br>
+    cities[2] = "Chicago";<br>
+    cities[3] = "Phoenix";<br>
+    <h3>Index</h3>
+    <p>
+      var indexOne = cars[1];<br>
+      <b><span id="indexNum"></span></b>
+    </p>
+    <h3>Property Name</h3>
+    <p>
+      No named values.
+    </p>
+    <h3>Full Array Length</h3>
+    <p>
+      <b><span id=fullArrayNum></span></b>
     </p>
   </div>
 
@@ -35,8 +63,21 @@
     var indexOne = cars[1];
     var propName = cars["coupe"];
 
-    document.getElementById('index').innerHTML = indexOne;
-    document.getElementById('propName').innerHTML = propName;
+    var cities = [];
+    cities[0] = "Los Angeles";
+    cities[1] = "New York";
+    cities[2] = "Chicago";
+    cities[3] = "Phoenix";
+
+    var indexNumber = cities[1];
+    var arrayLength = cities.length;
+
+    document.getElementById('indexNamed').innerHTML = indexOne;
+    document.getElementById('propNamed').innerHTML = propName;
+    document.getElementById('fullArrayNamed').innerHTML = cars.length;
+
+    document.getElementById('indexNum').innerHTML = indexNumber;
+    document.getElementById('fullArrayNum').innerHTML = arrayLength;
   </script>
 </body>
 
