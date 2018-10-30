@@ -11,9 +11,97 @@
 
 <body>
   <h1>Manipulating CSS Class Properties Using JavaScript</h1>
-
+  <h2>Create new paragrpahs with alternating colors.</h2>
+  <input type="button" value="New Paragraph" onclick="createNewParagraph()"><input type="button" value="Remove Paragraph" onclick="removeParagraph()">
+  <div id="hello">
+  </div><br>
+  <h2>Show/hide elements</h2>
+  <h3>Parent Elements</h3>
+  <input type="button" value="Show/Hide All Divs" onclick="hideShow()">
+  <h3>Child Elements</h3>
+  <input type="button" value="Hide/Show Paragraphs" onclick="hidePara()">
+  <div class="hidden" style="display:none">
+    <h2>Hidden 1</h2>
+    <p class="para" style="display: inline">
+      This entire div was hidden.
+    </p>
+  </div>
+  <div class="hidden" style="display:none">
+    <h2>Hidden 2</h2>
+    <p class="para" style="display: inline">
+      This entire div was hidden.
+    </p>
+  </div>
+  <div class="hidden" style="display:none">
+    <h2>Hidden 3</h2>
+    <p class="para" style="display: inline">
+      This entire div was hidden.
+    </p>
+  </div>
   <script>
+    //createElement & appendChild
+    function createNewParagraph() {
+      var newParagraph = document.createElement('p');
+      var newText = document.createTextNode("A new paragraph is created with alternating colors.");
+      newParagraph.appendChild(newText);
+      document.getElementById('hello').appendChild(newParagraph);
+      colorTag();
+    }
 
+    //removeChild
+    function removeParagraph() {
+      var paraElem = document.getElementById('hello');
+      paraElem.removeChild(paraElem.lastChild);
+      colorTag();
+    }
+
+    //alternating color CSS
+    function colorTag() {
+      var items = document.getElementsByTagName('p');
+      if (items.length % 2 == 0) {
+        for (var i = 0; i < items.length; i++) {
+          if (i % 2 == 0) {
+            items[i].style.color = "blue";
+          } else {
+            items[i].style.color = "red";
+          }
+        }
+      } else {
+        for (var i = 0; i < items.length; i++) {
+          if (i % 2 == 0) {
+            items[i].style.color = "red";
+          } else {
+            items[i].style.color = "blue";
+          }
+        }
+      }
+    }
+
+    function hideShow() {
+      var hiddenElements = document.getElementsByClassName("hidden");
+      if (hiddenElements[0].style.display == "none") {
+        for (var element = 0; element < hiddenElements.length; element++) {
+          hiddenElements[element].style.display = "inline";
+        }
+      } else {
+        for (var element = 0; element < hiddenElements.length; element++) {
+          hiddenElements[element].style.display = "none";
+        }
+      }
+    }
+
+    function hidePara() {
+      var hiddenElements = document.getElementsByClassName("para");
+      if (hiddenElements[0].style.display == "none") {
+        for (var element = 0; element < hiddenElements.length; element++) {
+          hiddenElements[element].style.display = "inline";
+        }
+      } else {
+        for (var element = 0; element < hiddenElements.length; element++) {
+          hiddenElements[element].style.display = "none";
+        }
+      }
+    }
   </script>
 </body>
 

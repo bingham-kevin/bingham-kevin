@@ -11,24 +11,84 @@
 
 <body>
   <h1>DOM Manipulation Using createElement, appendChild, insertBefore, removeChild, etc.</h1>
+  <h2>createElement, appendChild, & removeChild</h2>
+  <input type="button" value="New Paragraph" onclick="createNewParagraph()"><input type="button" value="Remove Paragraph" onclick="removeParagraph()">
   <div id="hello">
-    <input type="button" value="New Paragraph" onclick="createNewParagraph()"><input type="button" value="Remove Paragraph" onclick="removeParagraph()">
   </div>
+  <h2>insertBefore</h2>
+  <input type="button" value="Add Item" onclick="insertItem()">
+  <div id="insertBefore">
+    <ul id="fruitsNuts">
+      <li>almonds</li>
+      <li>cashews</li>
+      <li>macadamia</li>
+    </ul>
+  </div>
+  <h2>innerHTML</h2>
+  <div id="innerHTML">
+    Replace this div's text.
+  </div>
+  <input type="button" value="Replace Div Text" onclick="innerReplace()">
+  <h2>document.write</h2>
+  <div id="docWrite">
+    document.write writes directly to the page.<br>
+    <script> document.write("<b>hello world!</b>");</script><br>
+    <input type="button" value="Insert Date" onclick="insertDate()">
+  </div>
+
   <script>
     //DOM Manipulation
 
-    //Create Element
+    //createElement & appendChild
     function createNewParagraph() {
       var newParagraph = document.createElement('p');
-      var newText = document.createTextNode("Hello!");
+      var newText = document.createTextNode("A new paragraph is created in the div with id 'hello'.");
       newParagraph.appendChild(newText);
-      document.body.appendChild(newParagraph);
+      document.getElementById('hello').appendChild(newParagraph);
     }
 
-    var paraElem = document.getElementsByTagName('p');
-
+    //removeChild
     function removeParagraph() {
+      var paraElem = document.getElementById('hello');
+      paraElem.removeChild(paraElem.lastChild);
+    }
 
+    //insertBefore
+    function insertItem() {
+      var insertText = fruits[randomFruit()];
+      var listItem = document.createElement("li");
+      var textItem = document.createTextNode(insertText);
+      listItem.appendChild(textItem);
+
+      var listId = document.getElementById("fruitsNuts");
+      var indexLoc = Math.floor(Math.random() * listId.childElementCount);
+      listId.insertBefore(listItem, listId.childNodes[indexLoc]);
+    }
+
+    var fruits = [
+      "banana",
+      "apple",
+      "orange",
+      "pear",
+      "peach",
+      "kiwi",
+      "strawberry",
+      "grape",
+      "apricot"
+    ];
+
+    function randomFruit() {
+      return Math.floor(Math.random() * fruits.length);
+    }
+
+    //innerHTML
+    function innerReplace() {
+      document.getElementById("innerHTML").innerHTML = "This is the new text!";
+    }
+
+    //document.Write
+    function insertDate() {
+      document.write(Date() + "<br><br>document.write overwrites the whole page when called after the page loads.")
     }
   </script>
 </body>
