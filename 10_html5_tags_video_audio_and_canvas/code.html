@@ -42,7 +42,9 @@
   </div>
   <div>
     <h2>Canvas</h2>
-    <button onclick="rectangle()">Draw Rectangle</button><button onclick="drawLine()">Draw Line</button><button onclick="resetCanvas()">Reset</button><br>
+    <button onclick="rectangle()">Draw Filled Rectangle</button><button onclick="rectangleOutline()">Draw Stroke Rectangle</button><button onclick="drawLine()">Draw Line</button><button onclick="drawCircle()">Draw Stroke Circle</button><button
+      onclick="drawFilledCircle()">Draw
+      Filled Circle</button><button onclick="resetCanvas()">Reset</button><button onclick="drawThousand()">Draw!!!!</button><br>
     <canvas id="canvas1" width="650" height="300" style="border:2px solid #000000;"></canvas>
   </div>
 
@@ -115,7 +117,7 @@
 
 
     function getRandomInt(max) {
-      return Math.floor(Math.random() * Math.floor(max));
+      return Math.round(Math.random() * Math.floor(max));
     }
 
     function getRandomColor() {
@@ -136,6 +138,15 @@
       canvasContext.fillRect(x1, y1, x2, y2);
     }
 
+    function rectangleOutline() {
+      var x1 = getRandomInt(canvas.width);
+      var y1 = getRandomInt(canvas.height);
+      var x2 = getRandomInt(canvas.width);
+      var y2 = getRandomInt(canvas.height);
+      canvasContext.strokeStyle = getRandomColor();
+      canvasContext.strokeRect(x1, y1, x2, y2);
+    }
+
     function drawLine() {
       var x1 = getRandomInt(canvas.width);
       var y1 = getRandomInt(canvas.height);
@@ -152,8 +163,58 @@
       canvasContext.stroke();
     }
 
+    function drawCircle() {
+      var x1 = getRandomInt(canvas.width);
+      var y1 = getRandomInt(canvas.height);
+      var radius = getRandomInt(100);
+      canvasContext.beginPath();
+      canvasContext.arc(x1, y1, radius, 0, 2 * Math.PI);
+      lineColor();
+    }
+
+    function drawFilledCircle() {
+      var x1 = getRandomInt(canvas.width);
+      var y1 = getRandomInt(canvas.height);
+      var radius = getRandomInt(100);
+      canvasContext.beginPath();
+      canvasContext.arc(x1, y1, radius, 0, 2 * Math.PI);
+      canvasContext.fillStyle = getRandomColor();
+      canvasContext.fill();
+      lineColor();
+    }
+
     function resetCanvas() {
       canvasContext.clearRect(0, 0, canvas.width, canvas.height);
+    }
+
+    function drawThousand() {
+      var i = 0;
+      while (i < 1000) {
+        switch (getRandomInt(5)) {
+          case 1:
+            drawFilledCircle();
+            setTimeout(i++, 1000);
+            break;
+          case 2:
+            drawLine();
+            setTimeout(i++, 1000);
+            break;
+          case 3:
+            drawCircle();
+            setTimeout(i++, 1000);
+            break;
+          case 4:
+            rectangle();
+            setTimeout(i++, 1000);
+            break;
+          case 5:
+            rectangle();
+            setTimeout(i++, 1000);
+            break;
+          default:
+            clearTimeout();
+        }
+      }
     }
   </script>
 </body>
