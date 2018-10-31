@@ -42,10 +42,11 @@
   </div>
   <div>
     <h2>Canvas</h2>
+    Name: <input type="text" id="nameField" placeholder="name"><button onclick="canvasName()">Draw Name</button><br>
     <button onclick="rectangle()">Draw Filled Rectangle</button><button onclick="rectangleOutline()">Draw Stroke Rectangle</button><button onclick="drawLine()">Draw Line</button><button onclick="drawCircle()">Draw Stroke Circle</button><button
       onclick="drawFilledCircle()">Draw
-      Filled Circle</button><button onclick="resetCanvas()">Reset</button><button onclick="drawThousand()">Draw!!!!</button><br>
-    <canvas id="canvas1" width="650" height="300" style="border:2px solid #000000;"></canvas>
+      Filled Circle</button><button onclick="resetCanvas()">Reset</button><span id="hiddenButton" style="display: none"><button onclick="drawThreeHun()">Draw!!!!</button></span><br>
+    <canvas id="canvas1" width="800" height="500" style="border:2px solid #000000;"></canvas>
   </div>
 
   <script>
@@ -129,6 +130,18 @@
       return colorValue;
     }
 
+    function canvasName() {
+      var text = document.getElementById('nameField').value;
+      var x = getRandomInt(canvas.width);
+      var y = getRandomInt(canvas.height);
+      canvasContext.font = "100px Arial";
+      canvasContext.beginPath();
+      canvasContext.fillStyle = getRandomColor();
+      canvasContext.fillText(text, x, y);
+      canvasContext.strokeStyle = getRandomColor();
+      canvasContext.strokeText(text, x, y);
+    }
+
     function rectangle() {
       var x1 = getRandomInt(canvas.width);
       var y1 = getRandomInt(canvas.height);
@@ -185,31 +198,36 @@
 
     function resetCanvas() {
       canvasContext.clearRect(0, 0, canvas.width, canvas.height);
+      document.getElementById('hiddenButton').style.display = "inline";
     }
 
-    function drawThousand() {
+    function drawThreeHun() {
       var i = 0;
-      while (i < 1000) {
-        switch (getRandomInt(5)) {
+      while (i < 300) {
+        switch (getRandomInt(6)) {
           case 1:
             drawFilledCircle();
-            setTimeout(i++, 1000);
+            i++;
             break;
           case 2:
             drawLine();
-            setTimeout(i++, 1000);
+            i++;
             break;
           case 3:
             drawCircle();
-            setTimeout(i++, 1000);
+            i++;
             break;
           case 4:
             rectangle();
-            setTimeout(i++, 1000);
+            i++;
             break;
           case 5:
             rectangle();
-            setTimeout(i++, 1000);
+            i++;
+            break;
+          case 6:
+            canvasName();
+            i++;
             break;
           default:
             clearTimeout();
