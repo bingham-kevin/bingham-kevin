@@ -7,12 +7,138 @@
   <title>Creating CSS3 Transitions and Animations in CSS and Triggering Them With Javascript</title>
   <meta name="author" content="Kevin Bingham">
   <meta name="description" content="javascript code examples-creating_css3_transitions_and_animations_in_css_and_triggering_them_with_javascript">
+  <style>
+    .clearfix {
+      overflow: auto;
+    }
+  </style>
 </head>
 
 <body>
   <h1>Creating CSS3 Transitions and Animations in CSS and Triggering Them With Javascript</h1>
-  <script>
+  <!--Transitions-->
+  <style>
+    #transition {
+      display: flex;
+      border: 1px solid #000000;
+      background-color: red;
+      width: 100px;
+      height: 100px;
+      color: white;
+      margin: auto;
+    }
 
+    p {
+      text-align: center;
+      margin: auto;
+    }
+
+    #transition1 {
+      border: 1px solid #000000;
+      background-color: black;
+      width: 50px;
+      height: 50px;
+    }
+
+    #transition1:hover {
+      border: 3px dotted red;
+      background-color: blue;
+      width: 300px;
+      height: 100px;
+      border-radius: 45px;
+      padding-top: 40px;
+      font-size: 30px;
+    }
+
+    #transition1 p {
+      color: white;
+      text-align: center;
+      margin: auto;
+    }
+  </style>
+  <div class="clearfix" style="width: 500px; height: 200px">
+    <h2>Transistion</h2>
+    <div id="transition" onmouseover="moveOverTransition()">
+      <p>
+        Click<br>
+        Me!
+      </p>
+    </div>
+  </div>
+  <div class="clearfix" style="width: 500px; height: 200px;">
+    <button onclick="addTransition()">Add Transistion Duration</button>
+    <div id="transition1">
+      <p>
+        Click<br>
+        Me!
+      </p>
+    </div>
+  </div>
+  <script>
+    var element = document.getElementById('transition');
+    element.addEventListener("mouseover", moveOverTransition());
+
+    function moveOverTransition() {
+      if (element.style.float == "left") {
+        element.style.float = "right";
+      } else {
+        element.style.float = "left";
+      }
+    }
+
+    function addTransition() {
+      var element = document.getElementById('transition1');
+      element.style.WebKitTransistion = "all 3s";
+      element.style.transition = "all 3s";
+    }
+  </script>
+
+  <!--Animations-->
+  <style>
+    #animation {
+      width: 100px;
+      height: 100px;
+      position: absolute;
+      background-color: blue;
+    }
+  </style>
+  <h2>Animations</h2>
+  <div class="clearfix" style="width: 300px; height: 300px; position: relative; border: 1px solid #000000;">
+    <div id="animation" onclick="animateBox()">
+      <p id="complete" style="color: white; text-align: center; margin: auto; font-size: 50px">
+
+      </p>
+    </div>
+  </div>
+
+  <script>
+    function animateBox() {
+      var item = document.getElementById("animation");
+      item.style.top = '0px';
+      item.style.left = '0px';
+      item.style.backgroundColor = "blue";
+      document.getElementById('complete').innerHTML = "";
+      var vLocation = 100;
+      var hLocation = 100;
+      var move = setInterval(animate, 5);
+
+      function animate() {
+        if (vLocation == 300) {
+          if (hLocation == 300) {
+            clearInterval(move);
+            item.style.backgroundColor = "red";
+            document.getElementById('complete').innerHTML = "Done!"
+          } else {
+            hLocation++;
+            item.style.height = hLocation + 'px';
+            item.style.backgroundColor = "yellow";
+          }
+        } else {
+          vLocation++;
+          item.style.width = vLocation + 'px';
+        }
+      }
+    }
   </script>
 </body>
 

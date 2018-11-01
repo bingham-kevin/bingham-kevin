@@ -46,7 +46,8 @@
     <button onclick="rectangle()">Draw Filled Rectangle</button><button onclick="rectangleOutline()">Draw Stroke Rectangle</button><button onclick="drawLine()">Draw Line</button><button onclick="drawCircle()">Draw Stroke Circle</button><button
       onclick="drawFilledCircle()">Draw
       Filled Circle</button><button onclick="resetCanvas()">Reset</button><span id="hiddenButton" style="display: none"><button onclick="drawThreeHun()">Draw!!!!</button></span><br>
-    <canvas id="canvas1" width="800" height="500" style="border:2px solid #000000;"></canvas>
+    <canvas id="canvas1" width="800" height="500" style="border:2px solid #000000;"></canvas><br>
+    <button onclick="drawRecord()">Draw Record</button><br>
   </div>
 
   <script>
@@ -115,7 +116,6 @@
     //canvas
     var canvas = document.getElementById('canvas1');
     var canvasContext = canvas.getContext('2d');
-
 
     function getRandomInt(max) {
       return Math.round(Math.random() * Math.floor(max));
@@ -234,6 +234,30 @@
         }
       }
     }
+
+    function drawRecord() {
+      canvasContext.beginPath();
+      canvasContext.arc(400, 250, 200, 0, 2 * Math.PI);
+      canvasContext.fillStyle = "black";
+      canvasContext.fill();
+
+      canvasContext.beginPath();
+      canvasContext.arc(400, 250, 50, 0, 2 * Math.PI);
+      canvasContext.fillStyle = "red";
+      canvasContext.fill();
+
+      canvasContext.beginPath();
+      canvasContext.arc(400, 250, 5, 0, 2 * Math.PI);
+      canvasContext.fillStyle = "white";
+      canvasContext.fill();
+
+      for (var i = 50; i < 200; i += 3) {
+        canvasContext.beginPath();
+        canvasContext.arc(400, 250, i, 0, 2 * Math.PI);
+        canvasContext.strokeStyle = "white";
+        canvasContext.stroke();
+      }
+    };
   </script>
 </body>
 
