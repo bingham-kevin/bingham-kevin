@@ -4,13 +4,106 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Title</title>
+  <title>Designing Defining and Triggering CSS3 Transitions Without Custom Libraries</title>
   <meta name="author" content="Kevin Bingham">
-  <meta name="description" content="javascript code examples-title">
+  <meta name="description" content="javascript code examples-designing_defining_and_triggering_css3_transitions_without_custom_libraries">
 </head>
 
 <body>
+  <style>
+    .menuItem {
+      width: 150px;
+      height: 50px;
+      background: blue;
+      -webkit-transition: width 1s;
+      transition: width 1s;
+      color: blue;
+    }
 
+    .menuItem:hover {
+      width: 400px;
+      color: white;
+      font-size: 40px;
+    }
+
+    ul {
+      list-style-type: none;
+    }
+
+    li {
+      padding: 20px 0px 0px 50px;
+    }
+
+    #linear {
+      transition-timing-function: linear;
+    }
+
+    #ease {
+      transition-timing-function: ease;
+    }
+
+    #easeout {
+      transition-timing-function: ease-out;
+    }
+
+    #easein {
+      transition-timing-function: ease-in;
+    }
+
+    #easeinout {
+      transition-timing-function: ease-in-out;
+    }
+
+    #multiple {
+      width: 100px;
+      height: 100px;
+      background-color: yellow;
+      -webkit-transition: width 3s, height 1s;
+      transition: width 3s, height 2s;
+    }
+
+    #multiple:hover {
+      width: 300px;
+      height: 400px;
+      background-color: green;
+    }
+
+    #delay {
+      background-image: linear-gradient(to right, white, yellow, orange, red);
+      width: 100px;
+      height: 100px;
+      border-radius: 60px;
+      transition: width 1s;
+      transition-delay: 2s;
+    }
+
+    #delay:hover {
+      width: 600px;
+    }
+  </style>
+  <h1>Designing Defining and Triggering CSS3 Transitions Without Custom Libraries</h1>
+  <h2>Transitions</h2>
+  <div>
+    <h3>Transition Timing</h3>
+    <ul>
+      <li id="linear" class="menuItem">linear</li>
+      <li id="ease" class="menuItem">ease</li>
+      <li id="easeout" class="menuItem">easeout</li>
+      <li id="easein" class="menuItem">easein</li>
+      <li id="easeinout" class="menuItem">easeinout</li>
+    </ul>
+  </div>
+  <h2>Mulitple Transitions</h2>
+  <div id="multiple">
+
+  </div>
+  <h2>Delay Transitions</h2>
+  <p>
+    2 second delay
+  </p>
+  <div id="delay">
+
+  </div>
   <script>
 
   </script>

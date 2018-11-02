@@ -4,12 +4,98 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Title</title>
+  <title>Designing Defining and Triggering CSS3 Transforms Without Custom Libraries</title>
   <meta name="author" content="Kevin Bingham">
-  <meta name="description" content="javascript code examples-title">
+  <meta name="description" content="javascript code examples-designing_defining_and_triggering_css3_transforms_without_custom_libraries">
 </head>
 
 <body>
+  <style>
+    .box {
+      border: 1px solid black;
+      width: 200px;
+      height: 200px;
+      margin: 50px;
+      background-color: orange;
+    }
+
+    #scaleX:hover {
+      transform: scaleX(2);
+    }
+
+    #scaleY:hover {
+      transform: scaleY(2);
+    }
+
+    #rotateX:hover {
+      transform: rotateX(50deg);
+    }
+
+    #rotateY:hover {
+      transform: rotateY(50deg);
+    }
+
+    #rotateZ:hover {
+      transform: rotateZ(50deg);
+    }
+
+    #translateX:hover {
+      transform: translateX(50px);
+    }
+
+    #translateY:hover {
+      transform: translateY(50px);
+    }
+
+    #skewX:hover {
+      transform: skewX(55deg);
+    }
+
+    #skewY:hover {
+      transform: skewY(55deg);
+    }
+  </style>
+  <h1>Designing Defining and Triggering CSS3 Transforms Without Custom Libraries</h1>
+  <h2>Transforms</h2>
+  <div>
+    <h3>Scale</h3>
+    <div class="box" id="scaleX">
+      Scale X Axis
+    </div>
+    <div class="box" id="scaleY">
+      Scale Y Axis
+    </div>
+  </div>
+  <div>
+    <h3>Rotate</h3>
+    <div class="box" id="rotateX">
+      Rotate X Axis
+    </div>
+    <div class="box" id="rotateY">
+      Rotate Y Axis
+    </div>
+    <div class="box" id="rotateZ">
+      Rotate Z Axis
+    </div>
+  </div>
+  <div>
+    <h3>Translate</h3>
+    <div class="box" id="translateX">
+      Translate X Axis
+    </div>
+    <div class="box" id="translateY">
+      Translate Y Axis
+    </div>
+  </div>
+  <div>
+    <h3>Skew</h3>
+    <div class="box" id="skewX">
+      Skew X Axis
+    </div>
+    <div class="box" id="skewY">
+      Skew Y Axis
+    </div>
+  </div>
 
   <script>
 
