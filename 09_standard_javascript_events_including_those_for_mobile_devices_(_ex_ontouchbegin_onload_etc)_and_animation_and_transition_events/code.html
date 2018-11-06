@@ -7,12 +7,120 @@
   <title>Standard JavaScript Events Including those for Mobile Devices ( Ex. onTouchBegin, onLoad, etc.) and Animation and Transition Events</title>
   <meta name="author" content="Kevin Bingham">
   <meta name="description" content="javascript code examples-standard_javascript_events_including_those_for_mobile_devices_(_ex_ontouchbegin_onload_etc)_and_animation_and_transition_events">
+  <style>
+    .touch {
+      display: flex;
+      width: 250px;
+      height: 100px;
+      color: white;
+      background-color: blue;
+      border-radius: 30px;
+      margin: auto 50px;
+    }
+
+    #touchEnd {
+      background-color: red;
+    }
+
+    p {
+      text-align: center;
+      margin: auto;
+      font-size: 48px;
+    }
+  </style>
 </head>
 
 <body>
   <h1>Standard JavaScript Events Including those for Mobile Devices ( Ex. onTouchBegin, onLoad, etc.) and Animation and Transition Events</h1>
-  <script>
+  <h2>Key Press Listener</h2>
+  <h3>Press the arrow keys to move the box</h3>
+  <h3>
+    <button>&larr;</button> Move Left
+    <button>&uarr;</button> Move Up
+    <button>&darr;</button> Move Down
+    <button>&rarr;</button> Move Right</h3>
+  Check to if the canvas has been loaded. Then load rectangle in center.<br>
+  <span style="color: red;">canvas</span>.<span style="color: teal;">addEventListener</span>(<span style="color: green;">"load"</span>, <span style="color: blue;">drawNewBox(<span style="color: red;">x, y, boxWidth, boxHeight</span>)</span>);<br><br>
+  <canvas id="canvas1" width="300" height="300" style="border: 1px solid black;"></canvas>
 
+  <h2>Touch Devices</h2>
+  <h3>Touch Start</h3>
+  <div class="touch" id="touchStart">
+    <p id="paraStarted">
+      Touch Start
+    </p>
+  </div>
+  <h3>Touch End</h3>
+  <div class="touch" id="touchEnd">
+    <p id="paraEnded">
+      Touch End
+    </p>
+  </div>
+  <script>
+    var canvas = document.getElementById('canvas1');
+    var canvasContext = canvas.getContext('2d');
+    var boxHeight = canvas.height - (canvas.height * .9);
+    var boxWidth = canvas.width - (canvas.width * .9);
+    var x = (canvas.width / 2) - 10;
+    var y = (canvas.height / 2) - 10;
+
+    window.onkeydown = function(event) {
+      var keyPressed = event.keyCode;
+      switch (keyPressed) {
+        case 39:
+          if (x <= (canvas.width - (boxWidth + 10))) {
+            x += 10;
+            drawNewBox(x, y, boxWidth, boxHeight);
+          }
+          break;
+        case 37:
+          if (x > 0) {
+            x -= 10;
+            drawNewBox(x, y, boxWidth, boxHeight);
+          }
+          break;
+        case 38:
+          if (y > 0) {
+            y -= 10;
+            drawNewBox(x, y, boxWidth, boxHeight);
+          }
+          break;
+        case 40:
+          if (y <= canvas.height - (boxHeight + 10)) {
+            y += 10;
+            drawNewBox(x, y, boxWidth, boxHeight);
+          }
+          break;
+      }
+    }
+
+    function drawNewBox(x, y, boxWidth, boxHeight) {
+      canvasContext.clearRect(0, 0, canvas.width, canvas.height);
+      canvasContext.fillStyle = 'red';
+      canvasContext.fillRect(x, y, boxWidth, boxHeight);
+    }
+
+    canvas.addEventListener("load", drawNewBox(x, y, boxWidth, boxHeight));
+
+    //touchstart
+    var touchStart = document.getElementById('touchStart');
+    var touchEnd = document.getElementById('touchEnd');
+
+    function touchBegin() {
+      document.getElementById('paraStarted').innerHTML = "Started";
+    }
+
+    function touchEnded() {
+      document.getElementById('paraEnded').innerHTML = "Ended";
+    }
+
+    touchStart.addEventListener('touchstart', touchBegin, {
+      passive: true
+    });
+
+    touchEnd.addEventListener('touchend', touchEnded, {
+      passive: true
+    });
   </script>
 </body>
 
