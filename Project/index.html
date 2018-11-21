@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Weather Project</title>
+  <meta name="author" content="Kevin Bingham">
+  <meta name="description" content="local_weather">
+  <link rel="stylesheet" href="./mobile.css">
+</head>
+
+<body>
+  <header>
+    <div id="header">
+      <div id="headerLeft" class="headerItem">
+        Weather Project
+      </div>
+      <div id="headerRight" class="headerItem">
+        ☰
+      </div>
+    </div>
+  </header>
+  <div class="location">
+    <div id="locationInput">
+      <div id="currentLocation">
+        <img id="gps" src="./assets/location.png"><br>
+        Use Current Location
+      </div>
+      <div id="inputFields">
+        <input id="searchBox" type="text" name="location" value="" placeholder="Los Angeles, CA or 90028"><br><button id="locationButton">Search</button>
+      </div>
+    </div>
+  </div>
+  <div id="locationFav">
+    Array from Local Storage
+  </div>
+  <script src="./script.js"></script>
+</body>
+
+</html>

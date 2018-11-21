@@ -1,0 +1,75 @@
+body {
+  font-family: Arial, "Times New Roman", sans-serif;
+  height: 100%;
+  width: 95%;
+  border: 1px red dotted;
+}
+
+/* Header Nav */
+#header {
+  display: grid;
+  margin: auto;
+  grid-template-columns: auto auto;
+  grid-column-gap: 10px;
+  font-variant: small-caps;
+  align-items: baseline;
+}
+
+.headerItem {
+  font-size: 3em;
+}
+
+#headerLeft {
+  text-align: left;
+  font-size: 2.5em;
+}
+
+#headerRight {
+  text-align: right;
+  font-size: 2em;
+}
+
+/* Location */
+.location {
+  padding-top: 10%;
+  margin: auto;
+  display: block;
+  font-size: 2em;
+}
+
+#locationInput {
+  width: 100%;
+  padding: 5px;
+  margin: auto;
+  text-align: center;
+}
+
+#currentLocation {
+  padding: 10%;
+  width: 50%;
+  margin: auto;
+  background-color: rgb(37, 71, 247);
+  border-radius: 60px;
+  color: #fff;
+  text-align: center;
+  font-size: 1em;
+}
+
+#gps {
+  width: 3em;
+}
+
+#inputFields {
+  padding-top: 4%;
+  width: 100%;
+  margin: auto;
+}
+
+input, button {
+  border: 1px solid black;
+  height: 30%;
+  width: 60%;
+  font-size: 20px;
+  margin: auto;
+  padding: 5px;
+}
