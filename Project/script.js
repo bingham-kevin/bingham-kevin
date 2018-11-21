@@ -2,7 +2,7 @@
 const apiKey = "d4fb5f3d39fd411cbb3205304182111";
 const weatherUrl = "https://api.apixu.com/v1/current.json?key=";
 
-const geoApi = "&apikey=e72d98ec79024cd5b1fd1f39f75d0b81&format=json&notStore=false&version=4.10";
+const geoApi = "&apikey=e72d98ec79024cd5b1fd1f39f75d0b81";
 const geoUrl = "https://geoservices.tamu.edu/Services/ReverseGeocoding/WebService/v04_01/Rest/?";
 
 /*Get current location*/
