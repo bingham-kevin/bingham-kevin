@@ -69,7 +69,7 @@ function getLocRequest() {
   xhr.onreadystatechange = function() {
     if (xhr.readyState == XMLHttpRequest.DONE) {
       locResponse = JSON.parse(this.responseText);
-      location = locResponse.StreetAddresses[0].City;
+      location = locResponse.StreetAddresses[0].Zip;
     } else if (xhr.readyState != XMLHttpRequest.DONE) {
       console.log('There was an error ' + this.status + this.statusText)
     }
