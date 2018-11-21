@@ -46,8 +46,8 @@ function formatLoc() {
 
 var objectResponse;
 
-function getWeatherRequest(location) {
-  var url = weatherUrl + apiKey + "&q=" + location;
+function getWeatherRequest(zipCode) {
+  var url = weatherUrl + apiKey + "&q=" + zipCode;
   var xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function() {
     if (xhr.readyState == XMLHttpRequest.DONE) {
