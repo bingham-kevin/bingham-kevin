@@ -1,6 +1,6 @@
 /* API info */
-const apiKey = "&APPID=97afec932383104561d92e3b162e110c";
-const openWeatherUrl = "https://api.openweathermap.org/data/2.5/weather?";
+const apiKey = "d4fb5f3d39fd411cbb3205304182111";
+const openWeatherUrl = "https://api.apixu.com/v1/current.json?key=";
 
 /*Get current location*/
 var latitude = 0;
@@ -16,6 +16,7 @@ function currentLocation(){
   }else{
     currLoc.innerHTML = "Geolocation is not supported by this browser.";
   }
+  showPosition();
 };
 
 function showPosition(position) {
@@ -33,7 +34,6 @@ function formatLoc(){
     lat = round(latitude, 6);
     lon = round(longitude, 6);
   }
-  console.log(lat +","+lon);
   getRequest();
 };
 
@@ -41,7 +41,7 @@ currLoc.addEventListener('touchstart', currentLocation);
 currLoc.addEventListener('click', currentLocation);
 
 function getRequest() {
- var url = openWeatherUrl + "lat=" + lat + "&lon=" + lon + apiKey;
+ var url = openWeatherUrl + apiKey +"&q=Phoenix" ;
   var xhr = new XMLHttpRequest();
   var objectResponse;
   xhr.onreadystatechange = function() {
@@ -53,6 +53,7 @@ function getRequest() {
   }
   xhr.open('GET', url, true);
   xhr.send();
+  console.log(objectResponse);
 };
 /* Search Location */
 var search = document.getElementById('searchBox');
