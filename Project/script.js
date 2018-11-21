@@ -1,6 +1,6 @@
 /* API info */
-const dsKey = "e15447b0a2e5880dd508fdd93b7b9268";
-const dsUrl = "https://api.darksky.net/forecast/";
+const apiKey = "&APPID=97afec932383104561d92e3b162e110c";
+const openWeatherUrl = "https://api.openweathermap.org/data/2.5/weather?";
 
 /*Get current location*/
 var latitude = 0;
@@ -20,26 +20,27 @@ function currentLocation(){
 function showPosition(position) {
     latitude = position.coords.latitude;
     longitude = position.coords.longitude;
-    return latitude + ","+ longitude;
   };
+
   function getRequest() {
-    var url = dsUrl + dsKey + "/" + latitude + "," + longitude;
+    var url = openWeatherUrl + "lat=" + latitude + "&lon=" + longitude + apiKey;
     var xhr = new XMLHttpRequest();
-    var objectResponse = {};
+    var objectResponse;
     xhr.onreadystatechange = function() {
       if (xhr.readyState == XMLHttpRequest.DONE) {
-        objectResponse = JSON.parse(this.responseText);
-        console.log(objectResponse);
+        objectResponse = this.responseText;
       } else if (xhr.readyState != XMLHttpRequest.DONE) {
         console.log('There was an error ' + this.status + this.statusText)
       }
     }
+    xhr.setRequestHeader("Content-Type", "JSON");
     xhr.open('GET', url, true);
     xhr.send();
+  console.log(JSON.stringify(objectResponse));
   };
 
 currLoc.addEventListener('touchstart', currentLocation);
-
+currLoc.addEventListener('click', currentLocation);
 
 /* Search Location */
 var search = document.getElementById('searchBox');
