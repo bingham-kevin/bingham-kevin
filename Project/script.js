@@ -33,7 +33,7 @@ function showPosition(position) {
         console.log('There was an error ' + this.status + this.statusText)
       }
     }
-    xhr.setRequestHeader("Content-Type", "JSON");
+    
     xhr.open('GET', url, true);
     xhr.send();
   console.log(JSON.stringify(objectResponse));
