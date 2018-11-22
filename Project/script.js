@@ -56,7 +56,7 @@ function getWeatherRequest(zipCode) {
   }
   xhr.open('GET', url, true);
   xhr.send();
-  document.getElementById('locationFav').innerHTML = objectResponse;
+  document.getElementById('locationFav').innerHTML = JSON.stringify(objectResponse);
 };
 
 function getLocRequest() {
