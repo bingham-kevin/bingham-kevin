@@ -33,8 +33,6 @@ currLoc.addEventListener('click', currentLocation);
 function round(value, decimals) {
   return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);
 };
-var lat;
-var lon;
 
 function formatLoc() {
   if (latitude != 0 && longitude != 0) {
