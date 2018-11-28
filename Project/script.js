@@ -4,79 +4,78 @@ const weatherUrl = "https://api.apixu.com/v1/current.json?key=";
 
 const geoApi = "&apikey=e72d98ec79024cd5b1fd1f39f75d0b81&format=json&notStore=false&version=4.10";
 const geoUrl = "https://geoservices.tamu.edu/Services/ReverseGeocoding/WebService/v04_01/Rest/?";
+const decimalPlaces = 2;
 
-/*Get current location*/
+/*Get current location
 var latitude = 0;
 var longitude = 0;
-var lat;
-var lon;
-
+*/
+/*
+var lat = round(latitude, decimalPlaces);
+var lon = round(longitude, decimalPlaces);
+*/
 var currLoc = document.getElementById('currentLocation');
 
-function currentLocation() {
+function getLocation(callback) {
   if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(showPosition);
+    var lat_lng = navigator.geolocation.getCurrentPosition(function(position) {
+      console.log(position);
+      var user_position = {};
+      user_position.lat = position.coords.latitude;
+      user_position.lng = position.coords.longitude;
+      callback(user_position);
+    });
   } else {
-    currLoc.innerHTML = "Geolocation is not supported by this browser.";
+    alert("Geolocation is not supported by this browser.");
   }
-  formatLoc();
-};
+}
+getLocation(function(lat_lng) {
+  console.log(lat_lng);
+});
 
-function showPosition(position) {
-  latitude = position.coords.latitude;
-  longitude = position.coords.longitude;
-};
+currLoc.addEventListener('touchstart', currentLocation, true);
+currLoc.addEventListener('click', gpsWeather(getRequest));
 
-currLoc.addEventListener('touchstart', currentLocation);
-currLoc.addEventListener('click', currentLocation);
-
+/* Format Numbers */
 function round(value, decimals) {
-  return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);
-};
-
-function formatLoc() {
-  if (latitude != 0 && longitude != 0) {
-    lat = round(latitude, 2);
-    lon = round(longitude, 2);
+  if (value != 0) {
+    return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);
   }
-  getLocRequest();
 };
 
-var objectResponse;
+//var url = weatherUrl + apiKey + "&q=" + zipCode;
+//var url = geoUrl + "lat=" + lat + "&lon=" + lon + geoApi;
+//location = locResponse.StreetAddresses[0].Zip;
+//document.getElementById('locationFav').innerHTML = JSON.stringify(objectResponse);
 
-function getWeatherRequest(zipCode) {
-  var url = weatherUrl + apiKey + "&q=" + zipCode;
+function getRequest(url) {
   var xhr = new XMLHttpRequest();
+  var objectResponse;
   xhr.onreadystatechange = function() {
     if (xhr.readyState == XMLHttpRequest.DONE) {
       objectResponse = JSON.parse(this.responseText);
+      return objectResponse;
     } else if (xhr.readyState != XMLHttpRequest.DONE) {
       console.log('There was an error ' + this.status + this.statusText)
     }
   }
   xhr.open('GET', url, true);
   xhr.send();
-  document.getElementById('locationFav').innerHTML = JSON.stringify(objectResponse);
 };
+/*
+getLocation(function(lat_lng) {
+  var userCoords = "lat=" + round(userPosition.lat, 2) + "&lon=" + round(userPosition.lng, 2);
+  return userCoords;
+})
+*/
 
-function getLocRequest() {
-  var url = geoUrl + "lat=" + lat + "&lon=" + lon + geoApi;
-  var locResponse;
-  var location;
-  var xhr = new XMLHttpRequest();
-  xhr.onreadystatechange = function() {
-    if (xhr.readyState == XMLHttpRequest.DONE) {
-      locResponse = JSON.parse(this.responseText);
-      location = locResponse.StreetAddresses[0].Zip;
-    } else if (xhr.readyState != XMLHttpRequest.DONE) {
-      console.log('There was an error ' + this.status + this.statusText)
-    }
-  }
-  xhr.open('GET', url, true);
-  xhr.send();
-  getWeatherRequest(location);
+function gpsWeather(callback) {
+  var geoLoc = getLocation(function(lat_lng) {
+    return "lat=" + round(lat_lng.lat, 2) + "&lon=" + round(lat_lng.lng, 2);
+  });
+  var getUrl = geoUrl + geoLoc + geoApi;
+  alert(callback(getUrl).StreetAddresses[0].Zip);
 };
-
 /* Search Location */
 var search = document.getElementById('searchBox');
 
@@ -84,4 +83,5 @@ function searchLocation() {
   currLoc.innerHTML = search.value;
 };
 
-document.getElementById('locationButton').addEventListener('touchend', searchLocation);
+document.getElementById('locationButton').addEventListener('touchend', searchLocation, true);
+document.getElementById('locationButton').addEventListener('click', searchLocation);
