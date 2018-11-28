@@ -80,8 +80,9 @@ function localWeather() {
       document.getElementById('city').innerHTML = data.location.name;
       document.getElementById('currentTemp').innerHTML = data.current.temp_f + "&deg;";
       document.getElementById('condition').innerHTML = data.current.condition.text;
-      document.getElementById('condIcon').innerHTML = '<img src="http:' + data.current.condition.icon + '">';
+      document.getElementById('condIcon').innerHTML = '<img src="https:' + data.current.condition.icon + '">';
     })
 };
 
 document.getElementById('currentLocation').addEventListener('click', localWeather, true);
+document.getElementById('currentLocation').addEventListener('touchstart', localWeather, true);
