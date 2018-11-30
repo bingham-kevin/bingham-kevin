@@ -16,7 +16,16 @@
         Weather Project
       </div>
       <div id="headerRight" class="headerItem">
-        ☰
+        <span id="navMenu">☰</span>
+        <ul id="favoriteList" class="hide">
+          <li>Search</li>
+          <li id="getlocal">Favorites
+            <ul class="localFavs">
+              <li>Test</li>
+            </ul>
+          </li>
+
+        </ul>
       </div>
     </div>
   </header>
@@ -32,6 +41,7 @@
     </div>
   </div>
   <div id="weather">
+    <span class="hidden" id="zipcode"></span>
     <span id="city"></span><br>
     <span id="currentTemp"></span><br>
     <span id="condition"></span><br>

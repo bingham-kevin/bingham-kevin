@@ -6,6 +6,10 @@ const geoApi = "&apikey=e72d98ec79024cd5b1fd1f39f75d0b81&format=json&notStore=fa
 const geoUrl = "https://geoservices.tamu.edu/Services/ReverseGeocoding/WebService/v04_01/Rest/?";
 
 let currentZipCode;
+
+function toggleNavMenu() {
+  document.getElementById('favoriteList').classList.toggle('hide');
+}
 //Check for local storage
 
 //Get Current Coordinates of the Device
@@ -19,18 +23,6 @@ function getLocation() {
         reject(error);
       }
     )
-  })
-};
-
-function getCityWeather() {
-  return new Promise(function(resolve, reject) {
-    let value = true;
-    if (true) {
-      let zipCode = document.getElementById('searchBox').value;
-      resolve(zipCode);
-    } else {
-      reject(error);
-    }
   })
 };
 
@@ -94,7 +86,7 @@ function getRequest(url) {
         console.log('404 Error')
       }
     })
-}
+};
 
 function weatherData(data) {
   document.getElementById('city').innerHTML = data.location.name;
@@ -107,13 +99,26 @@ function forecastWeather(data) {
   let forecast = data.forecast.forecastday[0].day;
   document.getElementById('high').innerHTML = "High: " + forecast.maxtemp_f.toFixed(0) + "&deg; F";
   document.getElementById('low').innerHTML = "Low: " + forecast.mintemp_f.toFixed(0) + "&deg; F";
-}
+};
 
 function srchWeather(searchData) {
+  document.getElementById('zipcode').innerHTML = currentZipCode;
   document.getElementById('city').innerHTML = searchData.location.name;
   document.getElementById('currentTemp').innerHTML = searchData.current.temp_f + "&deg;";
   document.getElementById('condition').innerHTML = searchData.current.condition.text;
   document.getElementById('condIcon').innerHTML = '<img src="https:' + searchData.current.condition.icon + '">';
+};
+
+function getCityWeather() {
+  return new Promise(function(resolve, reject) {
+    let value = true;
+    if (true) {
+      let zipCode = document.getElementById('searchBox').value;
+      resolve(zipCode);
+    } else {
+      reject(error);
+    }
+  })
 };
 
 // Get local weather & local forecast
@@ -133,6 +138,7 @@ function localWeather() {
     //get zip code from reverse geocoded JSON
     .then(zipCode => {
       currentZipCode = zipCode.StreetAddresses[0].Zip;
+      document.getElementById('zipcode').innerHTML = currentZipCode;
       return currentZipCode;
     })
     .then(setWeatherUrl => getWeatherUrl(setWeatherUrl))
@@ -146,13 +152,13 @@ function localWeather() {
 };
 
 function searchLocationWeather() {
-  let zipCode = document.getElementById('searchBox').value;
+  currentZipCode = document.getElementById('searchBox').value;
 
   getCityWeather()
     .then(searchResult => getForecastUrl(searchResult))
     .then(result => getRequest(result))
     .then(data => srchWeather(data))
-    .then(result => getForecastUrl(zipCode))
+    .then(result => getForecastUrl(currentZipCode))
     .then(forUrl => getRequest(forUrl))
     .then(response => forecastWeather(response))
 };
@@ -162,17 +168,33 @@ function newFavorite(city, zip) {
   this.zipCode = zip;
 }
 
-
-function favorite(object) {
-  favs.push(currentZipCode);
-  localStorage.setItem('cities', JSON.stringify(favs));
-  let favList = JSON.parse(localStorage.getItem('cities'));
-  console.log(favList);
+function addFavorite(index) {
+  let city = document.getElementById('city').innerHTML;
+  let zip = document.getElementById('zipcode').innerHTML;
+  let object = new newFavorite(city, zip);
+  localStorage.setItem('city' + index, JSON.stringify(object));
 };
+
+function favorite() {
+  if (!localStorage) {
+    addFavorite(0);
+  } else if (localStorage) {
+    var count = localStorage.length;
+    addFavorite(count)
+    let item = JSON.parse(localStorage.getItem('city' + count));
+    console.log(item);
+  }
+  // localStorage.setItem('cities', JSON.stringify(favs));
+  // let favList = JSON.parse(localStorage.getItem('cities'));
+  // console.log(favList);
+};
+
+
 
 //Listeners
 //window.onload = favorite();
 document.getElementById('currentLocation').addEventListener('click', localWeather, true);
 document.getElementById('currentLocation').addEventListener('touchstart', localWeather, true);
-//document.getElementById('favorite').addEventListener('click', favorite, true);
+document.getElementById('navMenu').addEventListener('click', toggleNavMenu, true);
+document.getElementById('getlocal').addEventListener('click', favorite, true);
 document.getElementById('locationButton').addEventListener('click', searchLocationWeather, true);

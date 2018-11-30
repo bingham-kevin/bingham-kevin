@@ -30,6 +30,14 @@ body {
 }
 
 /* Location */
+.hidden {
+  display: none;
+}
+
+.hide {
+  display: none;
+}
+
 .location {
   padding-top: 10%;
   margin: auto;
