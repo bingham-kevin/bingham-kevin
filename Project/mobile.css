@@ -38,10 +38,10 @@ body {
   display: none;
 }
 
-.location {
+#location {
   padding-top: 10%;
   margin: auto;
-  display: block;
+  display: flex;
   font-size: 2em;
 }
 
@@ -64,7 +64,8 @@ body {
 }
 
 #gps {
-  width: 3em;
+  height: 100px;
+  width: auto;
 }
 
 #inputFields {

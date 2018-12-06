@@ -1,15 +1,18 @@
-/* API info */
+/* ***API info*** */
+//Current and forecast data
 const apiKey = "d4fb5f3d39fd411cbb3205304182111";
-const currWeatherUrl = "https://api.apixu.com/v1/current.json?key=";
 const foreWeatherUrl = "https://api.apixu.com/v1/forecast.json?key=";
+//Reverse Geocoding data
 const geoApi = "&apikey=e72d98ec79024cd5b1fd1f39f75d0b81&format=json&notStore=false&version=4.10";
 const geoUrl = "https://geoservices.tamu.edu/Services/ReverseGeocoding/WebService/v04_01/Rest/?";
 
 let currentZipCode;
+let favoriteCities = [];
 
 function toggleNavMenu() {
   document.getElementById('favoriteList').classList.toggle('hide');
 }
+
 //Check for local storage
 
 //Get Current Coordinates of the Device
@@ -41,12 +44,12 @@ function geoCodeUrl(result) {
 };
 
 function getWeatherUrl(zipCode) {
-  let currentUrl = currWeatherUrl + apiKey + "&q=" + zipCode;
+  let currentUrl = currWeatherUrl + apiKey + "&q=" + zipCode + '&days=5';
   return currentUrl;
 };
 
 function getForecastUrl(forecastZipCode) {
-  let forecastUrl = foreWeatherUrl + apiKey + "&q=" + forecastZipCode;
+  let forecastUrl = foreWeatherUrl + apiKey + "&q=" + forecastZipCode + '&days=6';
   return forecastUrl;
 };
 
@@ -88,25 +91,28 @@ function getRequest(url) {
     })
 };
 
-function weatherData(data) {
-  document.getElementById('city').innerHTML = data.location.name;
-  document.getElementById('currentTemp').innerHTML = data.current.temp_f + "&deg;";
-  document.getElementById('condition').innerHTML = data.current.condition.text;
-  document.getElementById('condIcon').innerHTML = '<img src="https:' + data.current.condition.icon + '">';
-};
-
-function forecastWeather(data) {
+function weather(data) {
+  let current = data;
   let forecast = data.forecast.forecastday[0].day;
+  document.getElementById('zipcode').innerHTML = currentZipCode;
+  document.getElementById('city').innerHTML = current.location.name;
+  document.getElementById('currentTemp').innerHTML = current.current.temp_f.toFixed(0) + "&deg;";
+  document.getElementById('condition').innerHTML = current.current.condition.text;
+  document.getElementById('condIcon').innerHTML = conditionIcon(current.current.condition.text);
   document.getElementById('high').innerHTML = "High: " + forecast.maxtemp_f.toFixed(0) + "&deg; F";
   document.getElementById('low').innerHTML = "Low: " + forecast.mintemp_f.toFixed(0) + "&deg; F";
 };
 
-function srchWeather(searchData) {
-  document.getElementById('zipcode').innerHTML = currentZipCode;
-  document.getElementById('city').innerHTML = searchData.location.name;
-  document.getElementById('currentTemp').innerHTML = searchData.current.temp_f + "&deg;";
-  document.getElementById('condition').innerHTML = searchData.current.condition.text;
-  document.getElementById('condIcon').innerHTML = '<img src="https:' + searchData.current.condition.icon + '">';
+// function srchWeather(searchData) {
+//   document.getElementById('zipcode').innerHTML = currentZipCode;
+//   document.getElementById('city').innerHTML = searchData.location.name;
+//   document.getElementById('currentTemp').innerHTML = searchData.current.temp_f.toFixed(0) + "&deg;";
+//   document.getElementById('condition').innerHTML = searchData.current.condition.text;
+//   document.getElementById('condIcon').innerHTML = condtionIcon(searchData.current.condition.icon);
+// };
+
+function favoritesWeatherData(jsonData) {
+  favoriteCities.push(jsonData);
 };
 
 function getCityWeather() {
@@ -121,9 +127,21 @@ function getCityWeather() {
   })
 };
 
+function favCityWeather(favoriteZip) {
+  return new Promise(function(resolve, reject) {
+    let value = true;
+    if (true) {
+      let zipCode = favoriteZip;
+      resolve(zipCode);
+    } else {
+      reject(error);
+    }
+  })
+};
+
 // Get local weather & local forecast
 function localWeather() {
-  let myPos = getLocation()
+  getLocation()
     .then(position =>
       ({
         "latitude": position.coords.latitude,
@@ -141,26 +159,28 @@ function localWeather() {
       document.getElementById('zipcode').innerHTML = currentZipCode;
       return currentZipCode;
     })
-    .then(setWeatherUrl => getWeatherUrl(setWeatherUrl))
-    //Get current weather for current zip code
-    .then(zipCode => weatherLoc(zipCode))
-    //Place current weather data on the page
-    .then(data => weatherData(data))
-    .then(result => getForecastUrl(currentZipCode))
+    .then(result => getForecastUrl(result))
     .then(forUrl => getRequest(forUrl))
-    .then(response => forecastWeather(response))
+    .then(response => weather(response))
+    .then(iconsAnimation => skyconsStart())
 };
 
 function searchLocationWeather() {
   currentZipCode = document.getElementById('searchBox').value;
 
   getCityWeather()
-    .then(searchResult => getForecastUrl(searchResult))
-    .then(result => getRequest(result))
-    .then(data => srchWeather(data))
+    .then(values => clearDiv())
     .then(result => getForecastUrl(currentZipCode))
     .then(forUrl => getRequest(forUrl))
-    .then(response => forecastWeather(response))
+    .then(response => weather(response))
+    .then(iconsAnimation => skyconsStart())
+};
+
+function favoriteCurrentWeather(favoriteZip) {
+  favCityWeather(favoriteZip)
+    .then(searchResult => getForecastUrl(searchResult))
+    .then(result => getRequest(result))
+    .then(data => favoritesWeatherData(data))
 };
 
 function newFavorite(city, zip) {
@@ -171,25 +191,139 @@ function newFavorite(city, zip) {
 function addFavorite(index) {
   let city = document.getElementById('city').innerHTML;
   let zip = document.getElementById('zipcode').innerHTML;
-  let object = new newFavorite(city, zip);
-  localStorage.setItem('city' + index, JSON.stringify(object));
+  if (index === 0) {
+    let array = [];
+    array[index] = new newFavorite(city, zip);
+    localStorage.setItem('city', JSON.stringify(array));
+  } else {
+    let array = JSON.parse(localStorage.getItem('city'));
+    array.push({
+      "cityName": city,
+      "zipCode": zip
+    })
+    localStorage.setItem('city', JSON.stringify(array));
+  }
 };
 
 function favorite() {
-  if (!localStorage) {
+  var count = localStorage.length;
+  if (count === 0) {
     addFavorite(0);
-  } else if (localStorage) {
-    var count = localStorage.length;
-    addFavorite(count)
-    let item = JSON.parse(localStorage.getItem('city' + count));
-    console.log(item);
+  } else if (count === 1) {
+    addFavorite(1);
+  } else {
+    addFavorite(count);
   }
+  // if (typeof localStorage === 'undefined') {
+  //   addFavorite(count);
+  // } else if (localStorage) {
+  //   let item = JSON.parse(localStorage.getItem('city'));
+  //   favoriteWeather(item[count].zipCode);
+  // }
   // localStorage.setItem('cities', JSON.stringify(favs));
   // let favList = JSON.parse(localStorage.getItem('cities'));
   // console.log(favList);
 };
 
+//Clear location div
+function clearDiv() {
+  var myNode = document.getElementById("location");
+  while (myNode.firstChild) {
+    myNode.removeChild(myNode.firstChild);
+  }
+}
 
+//Get facvorite weather
+function parseFavoritesWeather() {
+  let favsObj = JSON.parse(localStorage.getItem('city'));
+  for (var i = 0; i < favsObj.length; i++) {
+    let favoriteZip = favsObj[i].zipCode;
+    favoriteCurrentWeather(favoriteZip);
+    favoriteForecastWeather(favoriteZip);
+  }
+};
+
+function conditionIcon(condition) {
+  let lowerCondtion = condition.toLowerCase();
+  switch (lowerCondtion) {
+    case "cloudy":
+      return '<canvas id="cloudy" width="64" height="64"></canvas>'
+      break;
+    case "overcast":
+      return '<canvas id="cloudy" width="64" height="64"></canvas>'
+      break;
+    case "sunny":
+      return '<canvas id="clear-day" width="64" height="64"></canvas>'
+      break;
+    case "clear":
+      return '<canvas id="clear-night" width="64" height="64"></canvas>'
+      break;
+    case "partly cloudy":
+      return '<canvas id="partly-cloudy-night" width="64" height="64"></canvas>'
+      break;
+    case "blowing snow":
+      return '<canvas id="snow" width="64" height="64"></canvas>'
+      break;
+    case "blizzard":
+      return '<canvas id="snow" width="64" height="64"></canvas>'
+      break;
+    case "light snow showers":
+      return '<canvas id="snow" width="64" height="64"></canvas>'
+      break;
+    case "moderate or heavy snow showers":
+      return '<canvas id="snow" width="64" height="64"></canvas>'
+      break;
+    case "heavy snow":
+      return '<canvas id="snow" width="64" height="64"></canvas>'
+      break;
+    case "moderate snow":
+      return '<canvas id="snow" width="64" height="64"></canvas>'
+      break;
+    case "moderate rain":
+      return '<canvas id="rain" width="64" height="64"></canvas>'
+      break;
+    case "mist":
+      return '<canvas id="fog" width="64" height="64"></canvas>'
+      break;
+    case "fog":
+      return '<canvas id="fog" width="64" height="64"></canvas>'
+      break;
+    case "light sleet showers":
+      return '<canvas id="sleet" width="64" height="64"></canvas>'
+      break;
+    case "moderate or heavy sleet showers":
+      return '<canvas id="sleet" width="64" height="64"></canvas>'
+      break;
+    case "light sleet":
+      return '<canvas id="sleet" width="64" height="64"></canvas>'
+      break;
+    case "ice pellets":
+      return '<img src="./assets/weathericons/Cloud-Hail.svg">'
+      break;
+    case "moderate or heavy sleet":
+      return '<canvas id="sleet" width="64" height="64"></canvas>'
+      break;
+    default:
+      return '<img src="./assets/weathericons/Cloud-Download.svg">'
+  }
+};
+
+function skyconsStart() {
+  var icons = new Skycons({
+      "color": "black"
+    }),
+    list = [
+      "clear-day", "clear-night", "partly-cloudy-day",
+      "partly-cloudy-night", "cloudy", "rain", "sleet", "snow", "wind",
+      "fog"
+    ],
+    i;
+
+  for (i = list.length; i--;)
+    icons.set(list[i], list[i]);
+
+  icons.play();
+};
 
 //Listeners
 //window.onload = favorite();
@@ -197,4 +331,5 @@ document.getElementById('currentLocation').addEventListener('click', localWeathe
 document.getElementById('currentLocation').addEventListener('touchstart', localWeather, true);
 document.getElementById('navMenu').addEventListener('click', toggleNavMenu, true);
 document.getElementById('getlocal').addEventListener('click', favorite, true);
+document.getElementById('parse').addEventListener('click', parseFavoritesWeather, true);
 document.getElementById('locationButton').addEventListener('click', searchLocationWeather, true);
