@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Weather Project</title>
+  <meta name="author" content="Kevin Bingham">
+  <meta name="description" content="local_weather">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="./mobile.css">
+</head>
+
+<body>
+  <header>
+    <div id="header">
+      <div id="headerLeft" class="headerItem">
+        Weather Project
+      </div>
+      <div id="headerRight" class="headerItem">
+        <span id="navMenu">☰</span>
+        <ul id="favoriteList" class="hide">
+          <li>Search</li>
+          <li id="getlocal">Favorites
+            <ul class="localFavs">
+              <li id="parse">Test</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </header>
+  <div id="currentdata">
+    <div id="weather">
+      <span class="hidden" id="zipcode">90028</span>
+      <span id="savefav">&hearts;</span>
+      <span id="city">Los Angeles</span><br>
+      <span id="currentweather">Current Weather</span>
+      <span id="currentTemp">60 &deg;F</span><br>
+      <div id="condIcon">
+        <canvas id="clear-day" width="64" height="64"></canvas>
+      </div>
+      <span id="condition">Sunny</span><br>
+      <span id="high">High: 67 &deg;F</span><br>
+      <span id="low">Low: 50 &deg;F</span><br>
+    </div>
+    <div id="forecast">
+      <span id="currentforecast">Forecast</span>
+      <div class="hours">
+        <span class="times" id="time1">12</span>
+        <span class="foreicons" id="icon1"><img src="./assets/weathericons/Sun.svg">
+        </span>
+        <span class="conditions hidden" id="condition1">Sunny</span>
+        <span class="temps" id="temp1">50&deg;F</span>
+      </div>
+      <div class="hours">
+        <span class="times" id="time2">1</span>
+        <span class="foreicons" id="icon2">
+          <img src="./assets/weathericons/Sun.svg">
+        </span>
+        <span class="conditions hidden" id="condition2">Sunny</span>
+        <span class="temps" id="temp2">50&deg;F</span>
+      </div>
+      <div class="hours">
+        <span class="times" id="time3">2</span>
+        <span class="foreicons" id="icon3">
+          <img src="./assets/weathericons/Sun.svg">
+        </span>
+        <span class="conditions hidden" id="condition3">Sunny</span>
+        <span class="temps" id="temp3">50&deg;F</span>
+      </div>
+      <div class="hours">
+        <span class="times" id="time4">3</span>
+        <span class="foreicons" id="icon4">
+          <img src="./assets/weathericons/Sun.svg">
+        </span>
+        <span class="conditions hidden" id="condition4">Sunny</span>
+        <span class="temps" id="temp4">50&deg;F</span>
+      </div>
+      <div class="hours">
+        <span class="times" id="time5">4</span>
+        <span class="foreicons" id="icon5">
+          <img src="./assets/weathericons/Sun.svg">
+        </span>
+        <span class="conditions hidden" id="condition5">Sunny</span>
+        <span class="temps" id="temp5">50&deg;F</span>
+      </div>
+      <div class="hours">
+        <span class="times" id="time6">5</span>
+        <span class="foreicons" id="icon6">
+          <img src="./assets/weathericons/Sun.svg">
+        </span>
+        <span class="conditions hidden" id="condition6">Sunny</span>
+        <span class="temps" id="temp6">50&deg;F</span>
+      </div>
+      <div class="hours">
+        <span class="times" id="time7">6</span>
+        <span class="foreicons" id="icon7">
+          <img src="./assets/weathericons/Sun.svg">
+        </span>
+        <span class="conditions hidden" id="condition7">Sunny</span>
+        <span class="temps" id="temp7">50&deg;F</span>
+      </div>
+      <div class="hours">
+        <span class="times" id="time8">7</span>
+        <span class="foreicons" id="icon8">
+          <img src="./assets/weathericons/Sun.svg">
+        </span>
+        <span class="conditions hidden" id="condition8">Sunny</span>
+        <span class="temps" id="temp8">50&deg;F</span>
+      </div>
+      <div class="hours">
+        <span class="times" id="time9">8</span>
+        <span class="foreicons" id="icon9">
+          <img src="./assets/weathericons/Sun.svg">
+        </span>
+        <span class="conditions hidden" id="condition9">Sunny</span>
+        <span class="temps" id="temp9">50&deg;F</span>
+      </div>
+      <div class="hours">
+        <span class="times" id="time10">9</span>
+        <span class="foreicons" id="icon10">
+          <img src="./assets/weathericons/Sun.svg">
+        </span>
+        <span class="conditions hidden" id="condition10">Sunny</span>
+        <span class="temps" id="temp10">50&deg;F</span>
+      </div>
+      <div class="hours">
+        <span class="times" id="time11">10</span>
+        <span class="foreicons" id="icon11">
+          <img src="./assets/weathericons/Sun.svg">
+        </span>
+        <span class="conditions hidden" id="condition11">Sunny</span>
+        <span class="temps" id="temp11">50&deg;F</span>
+      </div>
+      <div class="hours">
+        <span class="times" id="time12">11</span>
+        <span class="foreicons" id="icon12">
+          <img src="./assets/weathericons/Sun.svg">
+        </span>
+        <span class="conditions hidden" id="condition12">Sunny</span>
+        <span class="temps" id="temp12">50&deg;F</span>
+      </div>
+    </div>
+  </div>
+  <script src="./weather.js"></script>
+  <script src="./assets/skycons.js"></script>
+  <script>
+    skyconsStart()
+  </script>
+</body>
+
+</html>
