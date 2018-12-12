@@ -11,35 +11,45 @@
 </head>
 
 <body>
+  <div id="navMenu">
+    <input id="navinput" type="checkbox">
+    <span></span>
+    <span></span>
+    <span></span>
+    <ul id="menu">
+      <li id="reloadmain">Search</li>
+      <li>Favorites
+        <ul>
+          <li>
+            Medina 98039
+          </li>
+        </ul>
+      </li>
+      <li>Info</li>
+      <li>Contact</li>
+      <li>Show me more</li>
+    </ul>
+  </div>
   <header>
     <div id="header">
-      <div id="headerLeft" class="headerItem">
-        Weather<br>Project
-      </div>
       <div id="headerRight" class="headerItem">
-        <span id="navMenu">☰</span>
-        <ul id="favoriteList" class="hide">
-          <li>Search</li>
-          <li id="getlocal">Favorites
-            <ul class="localFavs">
-              <li id="parse">Test</li>
-            </ul>
-          </li>
-
-        </ul>
+        Weather<br>Project
       </div>
     </div>
   </header>
   <div class="currentdata" id="currentdata">
+    <span id="savefav" class="savefav hidden" style="color: black; filter: invert(0);">&hearts;</span>
   </div>
   <div id="location">
-    <img id="gps" src="./assets/weathericons/Compass.svg">
+    <img id="gps" class="gps" src="./assets/weathericons/Compass.svg">
     <div id="inputFields">
-      <input id="searchBox" type="text" name="location" value="" placeholder=" Search by Zip Code i.e. 90028">
-      <button id="locationButton">Search</button>
+      <input id="searchBox" type="text" name="location" value="" placeholder="Zip Code i.e. 90028">
+      <button id="locationButton" class="locationButton">Search</button>
     </div>
-    <div id="localfavs">
-
+    <div id="favorites">
+      <span id="favheader">Favorites</span>
+      <div id="localfavs">
+      </div>
     </div>
   </div>
   <footer>
