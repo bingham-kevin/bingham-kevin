@@ -14,6 +14,22 @@ function toggleNavMenu() {
 }
 
 //Check for local storage
+function checkFav() {
+  loadFavs();
+  for (let x = 0; x < favoriteCities.length; x++) {
+    if (currentZipCode === favoriteCities[x].zipCode) {
+      document.getElementById('savefav').style.filter = "invert(0)";
+      document.getElementById('savefav').style.color = "red";
+    }
+  }
+};
+
+function favsFirst() {
+  loadFavs();
+  for (let i = 0; i < favoriteCities.length; i++) {
+    addElement('localfavs', 'city' + i, 'favsmain', favoriteCities[i].cityName, 'div')
+  }
+}
 
 //Get Current Coordinates of the Device
 function getLocation() {
@@ -44,12 +60,12 @@ function geoCodeUrl(result) {
 };
 
 function getWeatherUrl(zipCode) {
-  let currentUrl = currWeatherUrl + apiKey + "&q=" + zipCode + '&days=5';
+  let currentUrl = currWeatherUrl + apiKey + "&q=" + zipCode + '&days=7';
   return currentUrl;
 };
 
 function getForecastUrl(forecastZipCode) {
-  let forecastUrl = foreWeatherUrl + apiKey + "&q=" + forecastZipCode + '&days=6';
+  let forecastUrl = foreWeatherUrl + apiKey + "&q=" + forecastZipCode + '&days=7';
   return forecastUrl;
 };
 
@@ -91,11 +107,27 @@ function getRequest(url) {
     })
 };
 
+function addElement(div, id, className, value, elementType) {
+  let element = document.createElement(elementType);
+  //let elementValue = document.createTextNode(value);
+  element.setAttribute("class", className);
+  element.setAttribute('id', id);
+  if (className == 'zipcode') {
+    element.setAttribute('class', 'hidden');
+  }
+  //element.appendChild(elementValue);
+  document.getElementById(div).appendChild(element);
+  if (value !== null) {
+    document.getElementById(id).innerHTML = value;
+  }
+};
+
 function weather(data) {
   loadFavs();
   clearDiv();
   let current = data;
   let cityNow = current.location.name;
+  let localtime = current.location.localtime_epoch;
   let forecast = data.forecast.forecastday[0].day;
   let tempNow = current.current.temp_f.toFixed(0) + "&deg;F";
   let condNow = current.current.condition.text;
@@ -106,20 +138,6 @@ function weather(data) {
   let highTemp = "High<br>" + forecast.maxtemp_f.toFixed(0) + "&deg;F";
   let lowTemp = "Low<br>" + forecast.mintemp_f.toFixed(0) + "&deg;F"
 
-  function addElement(div, id, className, value, elementType) {
-    let element = document.createElement(elementType);
-    //let elementValue = document.createTextNode(value);
-    element.setAttribute("class", className);
-    element.setAttribute('id', id);
-    if (className == 'zipcode') {
-      element.setAttribute('class', 'hidden');
-    }
-    //element.appendChild(elementValue);
-    document.getElementById(div).appendChild(element);
-    if (value !== null) {
-      document.getElementById(id).innerHTML = value;
-    }
-  };
 
   //Current Conditions
   if (!weatherDiv) {
@@ -139,13 +157,7 @@ function weather(data) {
   addElement('weather', 'high', 'high', highTemp, 'span');
   addElement('weather', 'low', 'low', lowTemp, 'span');
 
-  for (let x = 0; x < favoriteCities.length; x++) {
-    if (currentZipCode === favoriteCities[x].zipCode) {
-      addElement('weather', 'savefav', 'savefav', favIcon, 'span');
-      document.getElementById('savefav').style.filter = "invert(0)";
-      document.getElementById('savefav').style.color = "red";
-    }
-  }
+  checkFav();
 
   //Forcasted Condtions
   if (!forcastDiv) {
@@ -156,8 +168,9 @@ function weather(data) {
   };
   addElement('forecast', 'currentforecast', 'currentforecast', '5-Day Forecast');
   let forecasted = current.forecast.forecastday;
-  for (let i = 1; i < forecasted.length; i++) {
+  for (let i = 2; i < forecasted.length; i++) {
     addElement('forecast', 'day' + i, 'days', null, 'div');
+    addElement('day' + i, 'dayname' + i, 'dayname', changeEpoch(forecasted[i].date_epoch), 'span')
     addElement('day' + i, 'time' + i, 'day', forecasted[i].date.substring(5, 7) + '/' + forecasted[i].date.substring(8, 11), 'span');
     addElement('day' + i, 'icon' + i, 'foreicons', conditionIcon(forecasted[i].day.condition.text), 'span');
     addElement('day' + i, 'temphigh' + i, 'temphigh', "High " + forecasted[i].day.maxtemp_f.toFixed(0) + "&deg;F", 'span');
@@ -172,6 +185,34 @@ function weather(data) {
 //   document.getElementById('condition').innerHTML = searchData.current.condition.text;
 //   document.getElementById('condIcon').innerHTML = condtionIcon(searchData.current.condition.icon);
 // };
+
+function changeEpoch(value) {
+  let date = new Date(value * 1000);
+
+  switch (date.getDay()) {
+    case 0:
+      return 'Sun'
+      break;
+    case 1:
+      return 'Mon'
+      break;
+    case 2:
+      return 'Tue'
+      break;
+    case 3:
+      return 'Wed'
+      break;
+    case 4:
+      return 'Thu'
+      break;
+    case 5:
+      return 'Fri'
+      break;
+    case 6:
+      return 'Sat'
+      break;
+  }
+}
 
 function loadFavs() {
   if (localStorage.getItem("city") !== null) {
@@ -274,6 +315,7 @@ function addFavorite(index) {
 };
 
 function favorite() {
+  if (localStorage.getItem('city') !== null) {}
   var count = localStorage.length;
   if (count === 0) {
     addFavorite(0);
@@ -291,6 +333,7 @@ function favorite() {
   // localStorage.setItem('cities', JSON.stringify(favs));
   // let favList = JSON.parse(localStorage.getItem('cities'));
   // console.log(favList);
+  checkFav();
 };
 
 //Clear location div
@@ -498,12 +541,13 @@ function skyconsStart() {
 };
 
 //Listeners
-//window.onload = favorite();
+window.onload = favsFirst();
 document.getElementById('navMenu').addEventListener('click', toggleNavMenu, true);
 document.getElementById('navMenu').addEventListener('touch', toggleNavMenu, true);
-document.getElementById('currentLocation').addEventListener('click', localWeather, true);
-document.getElementById('currentLocation').addEventListener('touchstart', localWeather, true);
+document.getElementById('gps').addEventListener('click', localWeather, true);
+document.getElementById('gps').addEventListener('touchstart', localWeather, true);
 document.getElementById('getlocal').addEventListener('click', favorite, true);
+document.getElementById('getlocal').addEventListener('touch', favorite, true);
 document.getElementById('parse').addEventListener('click', parseFavoritesWeather, true);
 document.getElementById('locationButton').addEventListener('click', searchLocationWeather, true);
 document.getElementById('locationButton').addEventListener('touch', searchLocationWeather, true);
