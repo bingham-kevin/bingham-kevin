@@ -6,6 +6,7 @@
   <title>Weather Project</title>
   <meta name="author" content="Kevin Bingham">
   <meta name="description" content="local_weather">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="./mobile.css">
 </head>
 
@@ -13,7 +14,7 @@
   <header>
     <div id="header">
       <div id="headerLeft" class="headerItem">
-        Weather Project
+        Weather<br>Project
       </div>
       <div id="headerRight" class="headerItem">
         <span id="navMenu">☰</span>
@@ -29,6 +30,8 @@
       </div>
     </div>
   </header>
+  <div class="currentdata" id="currentdata">
+  </div>
   <div id="location">
     <div id="locationInput">
       <div id="currentLocation">
@@ -38,22 +41,6 @@
         <input id="searchBox" type="text" name="location" value="" placeholder=" Search by Zip Code i.e. 90028"><button id="locationButton">Search</button>
       </div>
     </div>
-  </div>
-  <div id="weather">
-    <span class="hidden" id="zipcode">90028</span>
-    <span id="city"></span>Los Angeles<br>
-    <span id="currentTemp">60 &deg; F</span><br>
-    <span id="condition">Sunny</span><br>
-    <div id="condIcon">
-      <canvas id="clear-day" width="64" height="64"></canvas>
-    </div>
-  </div>
-  <div id="forecast">
-    <span id="high">High: 67 &deg; F</span><br>
-    <span id="low">Low: 50 &deg; F</span><br>
-  </div>
-  <div id="locationFav">
-    Array from Local Storage
   </div>
   <script src="./weather.js"></script>
   <script src="./assets/skycons.js"></script>

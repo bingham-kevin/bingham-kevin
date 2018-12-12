@@ -92,15 +92,77 @@ function getRequest(url) {
 };
 
 function weather(data) {
+  loadFavs();
+  clearDiv();
   let current = data;
+  let cityNow = current.location.name;
   let forecast = data.forecast.forecastday[0].day;
-  document.getElementById('zipcode').innerHTML = currentZipCode;
-  document.getElementById('city').innerHTML = current.location.name;
-  document.getElementById('currentTemp').innerHTML = current.current.temp_f.toFixed(0) + "&deg;";
-  document.getElementById('condition').innerHTML = current.current.condition.text;
-  document.getElementById('condIcon').innerHTML = conditionIcon(current.current.condition.text);
-  document.getElementById('high').innerHTML = "High: " + forecast.maxtemp_f.toFixed(0) + "&deg; F";
-  document.getElementById('low').innerHTML = "Low: " + forecast.mintemp_f.toFixed(0) + "&deg; F";
+  let tempNow = current.current.temp_f.toFixed(0) + "&deg;F";
+  let condNow = current.current.condition.text;
+  let icon = conditionIcon(current.current.condition.text);
+  let favIcon = "&hearts;"
+  let weatherDiv = document.getElementById('weather');
+  let forcastDiv = document.getElementById('forecast');
+  let highTemp = "High<br>" + forecast.maxtemp_f.toFixed(0) + "&deg;F";
+  let lowTemp = "Low<br>" + forecast.mintemp_f.toFixed(0) + "&deg;F"
+
+  function addElement(div, id, className, value, elementType) {
+    let element = document.createElement(elementType);
+    //let elementValue = document.createTextNode(value);
+    element.setAttribute("class", className);
+    element.setAttribute('id', id);
+    if (className == 'zipcode') {
+      element.setAttribute('class', 'hidden');
+    }
+    //element.appendChild(elementValue);
+    document.getElementById(div).appendChild(element);
+    if (value !== null) {
+      document.getElementById(id).innerHTML = value;
+    }
+  };
+
+  //Current Conditions
+  if (!weatherDiv) {
+    let newDiv = document.createElement('div');
+    newDiv.setAttribute('id', 'weather');
+    newDiv.setAttribute('class', 'weather');
+    document.getElementById('currentdata').appendChild(newDiv);
+  };
+
+  addElement('weather', 'zipcode', 'zipcode', currentZipCode, 'span');
+  addElement('weather', 'city', 'city', cityNow, 'span');
+  addElement('weather', 'savefav', 'savefav', favIcon, 'span');
+  addElement('weather', 'currentweather', 'currentweather', 'Current', 'span');
+  addElement('weather', 'currentTemp', 'currentTemp', tempNow, 'span');
+  addElement('weather', 'condition', 'condition', condNow, 'span');
+  addElement('weather', 'condIcon', 'condIcon', icon, 'span');
+  addElement('weather', 'high', 'high', highTemp, 'span');
+  addElement('weather', 'low', 'low', lowTemp, 'span');
+
+  for (let x = 0; x < favoriteCities.length; x++) {
+    if (currentZipCode === favoriteCities[x].zipCode) {
+      addElement('weather', 'savefav', 'savefav', favIcon, 'span');
+      document.getElementById('savefav').style.filter = "invert(0)";
+      document.getElementById('savefav').style.color = "red";
+    }
+  }
+
+  //Forcasted Condtions
+  if (!forcastDiv) {
+    let newDiv = document.createElement('div');
+    newDiv.setAttribute('id', 'forecast');
+    newDiv.setAttribute('class', 'forecast');
+    document.getElementById('currentdata').appendChild(newDiv);
+  };
+  addElement('forecast', 'currentforecast', 'currentforecast', '5-Day Forecast');
+  let forecasted = current.forecast.forecastday;
+  for (let i = 1; i < forecasted.length; i++) {
+    addElement('forecast', 'day' + i, 'days', null, 'div');
+    addElement('day' + i, 'time' + i, 'day', forecasted[i].date.substring(5, 7) + '/' + forecasted[i].date.substring(8, 11), 'span');
+    addElement('day' + i, 'icon' + i, 'foreicons', conditionIcon(forecasted[i].day.condition.text), 'span');
+    addElement('day' + i, 'temphigh' + i, 'temphigh', "High " + forecasted[i].day.maxtemp_f.toFixed(0) + "&deg;F", 'span');
+    addElement('day' + i, 'templow' + i, 'templow', "Low " + forecasted[i].day.mintemp_f.toFixed(0) + "&deg;F", 'span');
+  }
 };
 
 // function srchWeather(searchData) {
@@ -110,6 +172,12 @@ function weather(data) {
 //   document.getElementById('condition').innerHTML = searchData.current.condition.text;
 //   document.getElementById('condIcon').innerHTML = condtionIcon(searchData.current.condition.icon);
 // };
+
+function loadFavs() {
+  if (localStorage.getItem("city") !== null) {
+    favoriteCities = JSON.parse(localStorage.getItem('city'));
+  }
+}
 
 function favoritesWeatherData(jsonData) {
   favoriteCities.push(jsonData);
@@ -156,7 +224,7 @@ function localWeather() {
     //get zip code from reverse geocoded JSON
     .then(zipCode => {
       currentZipCode = zipCode.StreetAddresses[0].Zip;
-      document.getElementById('zipcode').innerHTML = currentZipCode;
+      //document.getElementById('zipcode').innerHTML = currentZipCode;
       return currentZipCode;
     })
     .then(result => getForecastUrl(result))
@@ -247,61 +315,160 @@ function conditionIcon(condition) {
   let lowerCondtion = condition.toLowerCase();
   switch (lowerCondtion) {
     case "cloudy":
-      return '<canvas id="cloudy" width="64" height="64"></canvas>'
+      return '<canvas class="cloudy" width="64" height="64"></canvas>'
       break;
     case "overcast":
-      return '<canvas id="cloudy" width="64" height="64"></canvas>'
+      return '<canvas class="cloudy" width="64" height="64"></canvas>'
       break;
     case "sunny":
-      return '<canvas id="clear-day" width="64" height="64"></canvas>'
+      return '<canvas class="clear-day" width="64" height="64"></canvas>'
       break;
     case "clear":
-      return '<canvas id="clear-night" width="64" height="64"></canvas>'
+      return '<canvas class="clear-night" width="64" height="64"></canvas>'
       break;
     case "partly cloudy":
-      return '<canvas id="partly-cloudy-night" width="64" height="64"></canvas>'
+      return '<canvas class="partly-cloudy-night" width="64" height="64"></canvas>'
       break;
     case "blowing snow":
-      return '<canvas id="snow" width="64" height="64"></canvas>'
+      return '<canvas class="snow" width="64" height="64"></canvas>'
       break;
     case "blizzard":
-      return '<canvas id="snow" width="64" height="64"></canvas>'
+      return '<canvas class="snow" width="64" height="64"></canvas>'
       break;
     case "light snow showers":
-      return '<canvas id="snow" width="64" height="64"></canvas>'
+      return '<canvas class="snow" width="64" height="64"></canvas>'
       break;
     case "moderate or heavy snow showers":
-      return '<canvas id="snow" width="64" height="64"></canvas>'
+      return '<canvas class="snow" width="64" height="64"></canvas>'
       break;
     case "heavy snow":
-      return '<canvas id="snow" width="64" height="64"></canvas>'
+      return '<canvas class="snow" width="64" height="64"></canvas>'
       break;
     case "moderate snow":
-      return '<canvas id="snow" width="64" height="64"></canvas>'
+      return '<canvas class="snow" width="64" height="64"></canvas>'
       break;
     case "moderate rain":
-      return '<canvas id="rain" width="64" height="64"></canvas>'
+      return '<canvas class="rain" width="64" height="64"></canvas>'
+      break;
+    case "moderate or heavy freezing rain":
+      return '<img src="./assets/weathericons/Cloud-Rain.svg">'
+      break;
+    case "heavy rain":
+      return '<img src="./assets/weathericons/Cloud-Rain.svg">'
+      break;
+    case "heavy rain at times":
+      return '<img src="./assets/weathericons/Cloud-Rain.svg">'
+      break;
+    case "moderate rain at times":
+      return '<canvas class="rain" width="64" height="64"></canvas>'
+      break;
+    case "light rain":
+      return '<img src="./assets/weathericons/Cloud-Rain-Alt.svg">'
+      break;
+    case "light freezing rain":
+      return '<img src="./assets/weathericons/Cloud-Rain-Alt.svg">'
+      break;
+    case "patchy light rain":
+      return '<img src="./assets/weathericons/Cloud-Rain-Alt.svg">'
       break;
     case "mist":
-      return '<canvas id="fog" width="64" height="64"></canvas>'
+      return '<canvas class="fog" width="64" height="64"></canvas>'
       break;
     case "fog":
-      return '<canvas id="fog" width="64" height="64"></canvas>'
+      return '<canvas class="fog" width="64" height="64"></canvas>'
       break;
     case "light sleet showers":
-      return '<canvas id="sleet" width="64" height="64"></canvas>'
+      return '<canvas class="sleet" width="64" height="64"></canvas>'
       break;
     case "moderate or heavy sleet showers":
-      return '<canvas id="sleet" width="64" height="64"></canvas>'
+      return '<canvas class="sleet" width="64" height="64"></canvas>'
+      break;
+    case "moderate or heavy rain shower":
+      return '<canvas class="rain" width="64" height="64"></canvas>'
+      break;
+    case "light rain shower":
+      return '<canvas class="rain" width="64" height="64"></canvas>'
       break;
     case "light sleet":
-      return '<canvas id="sleet" width="64" height="64"></canvas>'
+      return '<canvas class="sleet" width="64" height="64"></canvas>'
       break;
     case "ice pellets":
       return '<img src="./assets/weathericons/Cloud-Hail.svg">'
       break;
+    case "light showers of ice pellets":
+      return '<img src="./assets/weathericons/Cloud-Hail.svg">'
+      break;
+    case "moderate or heavy showers of ice pellets":
+      return '<img src="./assets/weathericons/Cloud-Hail-Alt.svg">'
+      break;
     case "moderate or heavy sleet":
-      return '<canvas id="sleet" width="64" height="64"></canvas>'
+      return '<canvas class="sleet" width="64" height="64"></canvas>'
+      break;
+    case "patchy sleet possible":
+      return '<canvas class="sleet" width="64" height="64"></canvas>'
+      break;
+    case "patchy snow possible":
+      return '<canvas class="snow" width="64" height="64"></canvas>'
+      break;
+    case "patchy rain possible":
+      return '<canvas class="rain" width="64" height="64"></canvas>'
+      break;
+    case "torrential rain shower":
+      return '<canvas class="rain" width="64" height="64"></canvas>'
+      break;
+    case "freezing fog":
+      return '<canvas class="fog" width="64" height="64"></canvas>'
+      break;
+    case "patchy light drizzle":
+      return '<img src="./assets/weathericons/Cloud-Drizzle-Alt.svg">'
+      break;
+    case "patchy freezing drizzle possible":
+      return '<img src="./assets/weathericons/Cloud-Drizzle-Alt.svg">'
+      break;
+    case "light drizzle":
+      return '<img src="./assets/weathericons/Cloud-Drizzle-Alt.svg">'
+      break;
+    case "light drizzle":
+      return '<img src="./assets/weathericons/Cloud-Drizzle-Alt.svg">'
+      break;
+    case "freezing drizzle":
+      return '<img src="./assets/weathericons/Cloud-Drizzle-Alt.svg">'
+      break;
+    case "heavy freezing drizzle":
+      return '<img src="./assets/weathericons/Cloud-Drizzle.svg">'
+      break;
+    case "patchy light snow":
+      return '<canvas class="snow" width="64" height="64"></canvas>'
+      break;
+    case "light snow":
+      return '<canvas class="snow" width="64" height="64"></canvas>'
+      break;
+    case "patchy moderate snow":
+      return '<canvas class="snow" width="64" height="64"></canvas>'
+      break;
+    case "moderate snow":
+      return '<canvas class="snow" width="64" height="64"></canvas>'
+      break;
+    case "patchy heavy snow":
+      return '<canvas class="snow" width="64" height="64"></canvas>'
+      break;
+    case "thundery outbreaks possible":
+      return '<img src="./assets/weathericons/Cloud-Lightning.svg">'
+      break;
+    case "moderate or heavy snow with thunder":
+      return '<img src="./assets/weathericons/Cloud-Lightning.svg">'
+      break;
+    case "patchy light rain with thunder":
+      return '<img src="./assets/weathericons/Cloud-Lightning.svg">'
+      break;
+    case "patchy light snow with thunder":
+      return '<img src="./assets/weathericons/Cloud-Lightning.svg">'
+      break;
+    case "patchy light snow with thunder":
+      return '<img src="./assets/weathericons/Cloud-Lightning.svg">'
+      break;
+    case "moderate or heavy rain with thunder":
+      return '<img src="./assets/weathericons/Cloud-Lightning.svg">'
       break;
     default:
       return '<img src="./assets/weathericons/Cloud-Download.svg">'
@@ -310,7 +477,7 @@ function conditionIcon(condition) {
 
 function skyconsStart() {
   var icons = new Skycons({
-      "color": "black"
+      "color": "white"
     }),
     list = [
       "clear-day", "clear-night", "partly-cloudy-day",
@@ -319,17 +486,24 @@ function skyconsStart() {
     ],
     i;
 
-  for (i = list.length; i--;)
-    icons.set(list[i], list[i]);
+  for (i = list.length; i--;) {
+    var weatherType = list[i],
+      elements = document.getElementsByClassName(weatherType);
+    for (e = elements.length; e--;) {
+      icons.set(elements[e], weatherType);
+    }
+  }
 
   icons.play();
 };
 
 //Listeners
 //window.onload = favorite();
+document.getElementById('navMenu').addEventListener('click', toggleNavMenu, true);
+document.getElementById('navMenu').addEventListener('touch', toggleNavMenu, true);
 document.getElementById('currentLocation').addEventListener('click', localWeather, true);
 document.getElementById('currentLocation').addEventListener('touchstart', localWeather, true);
-document.getElementById('navMenu').addEventListener('click', toggleNavMenu, true);
 document.getElementById('getlocal').addEventListener('click', favorite, true);
 document.getElementById('parse').addEventListener('click', parseFavoritesWeather, true);
 document.getElementById('locationButton').addEventListener('click', searchLocationWeather, true);
+document.getElementById('locationButton').addEventListener('touch', searchLocationWeather, true);
