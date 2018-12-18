@@ -23,7 +23,7 @@ body {
 }
 
 img {
-  filter: invert(0);
+  filter: invert(1);
 }
 
 #headerRight {
@@ -122,8 +122,18 @@ img {
   font-size: 22px;
 }
 
+.mainmenu:hover {
+  padding: 10px 0;
+  font-size: 22px;
+  color: gray;
+}
+
 #navMenu input:checked~ul {
   transform: none;
+}
+
+#navMenu .hidden {
+  display: none;
 }
 
 #headerRight img {
@@ -157,7 +167,8 @@ ul, li {
 #gps {
   grid-column: 1/2;
   height: 100px;
-  width: 100%;
+  width: auto;
+  float: right;
 }
 
 #inputFields {
@@ -329,6 +340,19 @@ input, button {
 
 .favsmain {
   border-top: 1px solid black;
+}
+
+.favsmenu {
+  font-size: .8em;
+  display: flex;
+  margin-top: -3px;
+}
+
+.favsmenu:hover {
+  font-size: .8em;
+  display: flex;
+  margin-top: -3px;
+  color: gray;
 }
 
 footer {

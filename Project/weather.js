@@ -31,6 +31,8 @@ function favsFirst() {
   loadFavs();
   for (let i = 0; i < favoriteCities.length; i++) {
     addElement('localfavs', 'city' + i, 'favsmain', favoriteCities[i].cityName, 'div')
+    addElement('favmenu', 'citymenu' + i, 'favsmenu', favoriteCities[i].cityName, 'li')
+    addElement('citymenu' + i, 'zipmenu' + i, 'hidden', favoriteCities[i].zipCode, 'span')
   }
   if (favoriteCities.length <= 0) {
     document.getElementById('favorites').classList.add('hidden');
@@ -131,6 +133,7 @@ function addElement(div, id, className, value, elementType) {
 function weather(data) {
   loadFavs();
   clearDiv('currentdata');
+  document.getElementsByClassName('currentdata').classList.add(animateCards);
   let current = data;
   let cityNow = current.location.name;
   let localtime = current.location.localtime_epoch;
@@ -160,6 +163,7 @@ function weather(data) {
   document.getElementById('inputFields').classList.add('hidden');
   document.getElementById('gps').classList.add('hidden');
   document.getElementById('locationButton').classList.add('hidden');
+  document.getElementById('favorites').classList.add('hidden');
   document.getElementById('localfavs').classList.add('hidden');
   addElement('weather', 'currentweather', 'currentweather', 'Current', 'span');
   addElement('weather', 'currentTemp', 'currentTemp', tempNow, 'span');
@@ -189,6 +193,7 @@ function weather(data) {
     addElement('day' + i, 'templow' + i, 'templow', "Low " + forecasted[i].day.mintemp_f.toFixed(0) + "&deg;F", 'span');
   }
 };
+
 
 // function srchWeather(searchData) {
 //   document.getElementById('zipcode').innerHTML = currentZipCode;
@@ -529,6 +534,7 @@ function conditionIcon(condition) {
 };
 
 function reloadmainpage() {
+  document.getElementsByClassName('currentdata').classList.remove(animateCards);
   clearDiv('currentdata');
   //addElement(div, id, className, value, elementType)
   addElement('currentdata', 'savefav', 'savefav', "&hearts;", 'span');
@@ -585,6 +591,13 @@ function addSaveFavListener() {
   }
 }
 
+function animateListener() {
+  var animatedCard = document.getElementsByClassName('currentdata');
+  for (let i = 0; i < animatedCard.length; i++) {
+    animatedCard[i].addEventListener('click', favorite, true);
+    animatedCard[i].addEventListener('touch', favorite, true);
+  }
+}
 
 
 //Listeners
