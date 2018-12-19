@@ -414,13 +414,15 @@ function newFavorite(city, zip) {
 };
 
 function checkForFav() {
-  array = JSON.parse(localStorage.getItem('city'));
-  for (var i = 0; i < array.length; i++) {
-    if (array[i].zipCode === currentZipCode) {
-      return i;
+  if (localStorage.getItem('city') !== null) {
+    let array = JSON.parse(localStorage.getItem('city'))
+    for (var i = 0; i < array.length; i++) {
+      if (array[i].zipCode === currentZipCode) {
+        return i;
+      }
     }
+    return -1;
   }
-  return -1;
 };
 
 function addFavorite(index) {
