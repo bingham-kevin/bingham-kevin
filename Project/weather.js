@@ -658,11 +658,13 @@ function reloadmainpage() {
   addSaveFavListener();
   document.getElementById('navinput').checked = false;
   favoriteCities = JSON.parse(localStorage.getItem('city'));
-  if (favoriteCities.length > 0) {
-    document.getElementById('favorites').classList.remove('hidden');
-  } else {
-    document.getElementById('favorites').classList.add('hidden');
-    document.getElementById('favheader').classList.add('hidden');
+  if (favoriteCities != null) {
+    if (favoriteCities.length > 0) {
+      document.getElementById('favorites').classList.remove('hidden');
+    } else {
+      document.getElementById('favorites').classList.add('hidden');
+      document.getElementById('favheader').classList.add('hidden');
+    }
   }
   favoriteListListener();
 };
