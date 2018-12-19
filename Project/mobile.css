@@ -199,7 +199,7 @@ input, button {
 
 .weather {
   display: grid;
-  grid-template-columns: 20% 60% 20%;
+  grid-template-columns: 35% 30% 35%;
   text-align: center;
 }
 
@@ -262,7 +262,7 @@ input, button {
   height: 25px;
   padding: 10px;
   border: 2px solid black;
-  border-radius: 150px 5px 5px 50px;
+  border-radius: 150px 5px 5px 10px;
 }
 
 .currentSeach {
@@ -283,7 +283,7 @@ input, button {
   height: 25px;
   padding: 10px;
   border: 2px solid black;
-  border-radius: 5px 50px 150px 5px;
+  border-radius: 5px 10px 150px 5px;
 }
 
 .city {
