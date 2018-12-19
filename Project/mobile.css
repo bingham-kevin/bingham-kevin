@@ -27,10 +27,7 @@ img {
 }
 
 #headerRight {
-  position: absolute;
-  top: 20px;
-  right: 8px;
-  float: right;
+  grid-column: 2/3;
   margin-right: 7px;
   text-align: right;
   font-size: 2em;
@@ -136,11 +133,6 @@ img {
   display: none;
 }
 
-#headerRight img {
-  height: 10%;
-  width: 10%;
-}
-
 ul, li {
   list-style-type: none;
 }
@@ -175,7 +167,7 @@ ul, li {
 #inputFields {
   grid-column: 2/3;
   padding-top: 4%;
-  width: 100%;
+  width: 90%;
   margin: auto;
   text-align: center;
 }
@@ -190,14 +182,14 @@ input, button {
 }
 
 .currentdata {
-  padding-top: 20%;
+  padding-top: 5%;
   width: 90%;
   margin: auto;
 }
 
 .weather {
   display: grid;
-  grid-template-columns: 30% 40% 30%;
+  grid-template-columns: 20% 60% 20%;
   text-align: center;
 }
 
@@ -244,8 +236,8 @@ input, button {
 }
 
 .savefav {
-  grid-row: 2/3;
-  grid-column: 3/4;
+  grid-row: 1/2;
+  grid-column: 2/3;
   font-size: 4.5em;
   text-align: center;
   margin: auto;
@@ -257,9 +249,10 @@ input, button {
 .leftArrow {
   grid-row: 1/2;
   grid-column: 1/2;
+  height: 25px;
   padding: 10px;
   border: 2px solid black;
-  border-radius: 70px 5px 5px 70px;
+  border-radius: 150px 5px 5px 50px;
 }
 
 .currentSeach {
@@ -277,15 +270,15 @@ input, button {
 .rightArrow {
   grid-row: 1/2;
   grid-column: 3/4;
-  height: 20px;
+  height: 25px;
   padding: 10px;
   border: 2px solid black;
-  border-radius: 5px 70px 70px 5px;
+  border-radius: 5px 50px 150px 5px;
 }
 
 .city {
   grid-row: 2/3;
-  grid-column: 2/3;
+  grid-column: 1/4;
   text-align: center;
   font-size: 3em;
   padding-bottom: 10px;
@@ -418,13 +411,16 @@ input, button {
 .favsmenu {
   font-size: .8em;
   display: flex;
-  margin-top: -3px;
 }
 
-.favsmenu:hover {
+.favsmenuitems {
   font-size: .8em;
   display: flex;
-  margin-top: -3px;
+}
+
+.favsmenuitems:hover {
+  font-size: .8em;
+  display: flex;
   color: gray;
 }
 
