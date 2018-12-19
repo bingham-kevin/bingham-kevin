@@ -262,9 +262,22 @@ input, button {
   border-radius: 70px 5px 5px 70px;
 }
 
+.currentSeach {
+  grid-row: 1/2;
+  grid-column: 1/2;
+  padding: 10px;
+}
+
+.currentSeach img {
+  height: 70px;
+  width: 70px;
+  filter: invert(1);
+}
+
 .rightArrow {
   grid-row: 1/2;
   grid-column: 3/4;
+  height: 20px;
   padding: 10px;
   border: 2px solid black;
   border-radius: 5px 70px 70px 5px;

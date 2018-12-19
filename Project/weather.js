@@ -197,15 +197,8 @@ function weather(data) {
   }
   addElement('weather', 'rightArrow', 'rightArrow', null, 'div');
   document.getElementById('rightArrow').innerHTML = "Next";
-  addElement('weather', 'leftArrow', 'leftArrow', null, 'div');
-  document.getElementById('leftArrow').innerHTML = "Previous";
-  leftListener();
   rightListener();
   addElement('weather', 'currentIndex', 'currentIndex hidden', 'gps', 'span');
-  let cLoc = document.getElementById('currentIndex').innerHTML;
-  if (cLoc == 'gps') {
-    document.getElementById('leftArrow').classList.add('hidden');
-  }
   if (favoriteCities.length < 1) {
     document.getElementById('rightArrow').classList.add('hidden');
   }
@@ -274,15 +267,16 @@ function weatherFav(data) {
   }
   addElement('weather', 'rightArrow', 'rightArrow', null, 'div');
   document.getElementById('rightArrow').innerHTML = "Next";
-  if (currentCardNum == 0) {
-    addElement('weather', 'leftArrow', 'leftArrow', null, 'div');
-    document.getElementById('leftArrow').classList.add('hidden');
+  if (currentCardNum === 0 || currentCardIndex === 0) {
+    addElement('weather', 'currentSeach', 'currentSeach', null, 'div');
+    document.getElementById('currentSeach').innerHTML = '<img src="./assets/location.png">'
   } else {
     addElement('weather', 'leftArrow', 'leftArrow', null, 'div');
     document.getElementById('leftArrow').innerHTML = "Previous";
-  }
+  };
   leftListener();
   rightListener();
+  localWeatherListener();
 };
 
 function changeEpoch(value) {
@@ -717,6 +711,14 @@ function leftListener() {
   }
 }
 
+function localWeatherListener() {
+  var compass = document.getElementsByClassName('currentSeach');
+  for (let i = 0; i < compass.length; i++) {
+    compass[i].addEventListener('click', localWeatherCard, true);
+    compass[i].addEventListener('touch', localWeatherCard, true);
+  }
+}
+
 function rightListener() {
   var arrowRight = document.getElementsByClassName('rightArrow');
   for (let i = 0; i < arrowRight.length; i++) {
@@ -774,6 +776,24 @@ function flipCardLeft() {
   addSaveFavListener();
 }
 
+function localWeatherCard() {
+  currentCardIndex = document.getElementById('currentIndex').innerHTML;
+  let previousCard;
+  document.getElementById('currentdata').classList.add('weatherFlip');
+  setTimeout(clearDiv('currentdata'), 1000);
+  if (currentCardNum !== 0 && currentCardIndex <= favoriteCities.length - 1) {
+    currentCardNum -= 1;
+    previousCard = favoriteCities[currentCardNum].zipCode;
+  }
+  localWeather();
+  currentZipCode = previousCard;
+  setTimeout(function() {
+    document.getElementById('currentdata').classList.remove('weatherFlip')
+  }, 2000);
+  checkFav();
+  addSaveFavListener();
+}
+
 function flipCardRight() {
   currentCardIndex = document.getElementById('currentIndex').innerHTML;
   let nextCard;
@@ -806,3 +826,4 @@ leftListener();
 rightListener();
 addSaveFavListener();
 favoriteListListener();
+localWeatherListener();
