@@ -244,6 +244,7 @@ input, button {
 }
 
 .savefav {
+  clear: both;
   position: absolute;
   top: 100px;
   right: 30px;
