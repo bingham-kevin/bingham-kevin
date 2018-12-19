@@ -18,15 +18,11 @@ function toggleNavMenu() {
 //Check for local storage
 function checkFav() {
   loadFavs();
-  var saveFavListener = document.getElementsByClassName('savefav');
-  for (let x = 0; x < favoriteCities.length; x++) {
-    if (currentZipCode === favoriteCities[x].zipCode) {
-      for (var i = 0; i < saveFavListener.legth; i++) {
-        saveFavListener[i].style.filter = "invert(0)";
-        saveFavListener[i].style.color = "red";
-        saveFavListener[i].classList.add("checked");
-      }
-    }
+  let found = checkForFav();
+  if (found == -1) {
+    document.getElementById('savefav').style.color = 'black';
+  } else {
+    document.getElementById('savefav').style.color = 'red';
   }
 };
 
@@ -433,6 +429,11 @@ function addFavorite(index) {
       array = JSON.parse(localStorage.getItem('city'));
       array[array.length] = new newFavorite(city, zip);
       localStorage.setItem('city', JSON.stringify(array));
+    } else {
+      array = JSON.parse(localStorage.getItem('city'));
+      array.splice(checkedValue, 1);
+      localStorage.setItem('city', JSON.stringify(array));
+      favoriteCities = JSON.parse(localStorage.getItem('city'));
     }
   }
 
@@ -453,16 +454,6 @@ function favorite() {
   clearDiv('favmenu')
   favsFirst();
   checkFav();
-};
-
-function removeFav() {
-  let array = JSON.parse(localStorage.getItem('city'));
-  let checkedValue = checkForFav();
-  if (checkedValue !== -1) {
-    array = JSON.parse(localStorage.getItem('city'));
-    array.splice(checkedValue, 1);
-    localStorage.setItem('city', JSON.stringify(array));
-  }
 };
 
 //Clear location div
@@ -700,23 +691,8 @@ function addGpsListener() {
 function addSaveFavListener() {
   var saveFavListener = document.getElementsByClassName('savefav');
   for (let i = 0; i < saveFavListener.length; i++) {
-    saveFavListener[i].removeEventListener('click', removeFav, true);
-    saveFavListener[i].removeEventListener('touch', removeFav, true);
-    saveFavListener[i].removeEventListener('click', favorite, true);
-    saveFavListener[i].removeEventListener('touch', favorite, true);
-  }
-  for (let i = 0; i < saveFavListener.length; i++) {
-    if (saveFavListener[i].style.color === 'red') {
-      for (let i = 0; i < saveFavListener.length; i++) {
-        saveFavListener[i].addEventListener('click', removeFav, true);
-        saveFavListener[i].addEventListener('touch', removeFav, true);
-      }
-    } else {
-      for (let i = 0; i < saveFavListener.length; i++) {
-        saveFavListener[i].addEventListener('click', favorite, true);
-        saveFavListener[i].addEventListener('touch', favorite, true);
-      }
-    }
+    saveFavListener[i].addEventListener('click', favorite, true);
+    saveFavListener[i].addEventListener('touch', favorite, true);
   }
 };
 
