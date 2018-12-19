@@ -10,11 +10,6 @@ let currentZipCode;
 let favoriteCities = [];
 let currentCardIndex, currentCardNum = 0;
 
-// function toggleNavMenu() {
-//   document.getElementById('favoriteList').classList.toggle('hide');
-//   document.getElementById('navMenu').classList.toggle('rotateNav');
-// }
-
 //Check for local storage
 function checkFav() {
   loadFavs();
@@ -43,6 +38,7 @@ function favsFirst() {
   }
   if (favoriteCities.length <= 0) {
     document.getElementById('favorites').classList.add('hidden');
+    document.getElementById('favheader').classList.add('hidden');
   }
 };
 
@@ -654,14 +650,19 @@ function reloadmainpage() {
   document.getElementById('inputFields').classList.remove('hidden');
   document.getElementById('gps').classList.remove('hidden');
   document.getElementById('locationButton').classList.remove('hidden');
+  document.getElementById('favheader').classList.remove('hidden');
   document.getElementById('localfavs').classList.remove('hidden');
   document.getElementById('searchBox').setAttribute("placeholder", "Zip Code i.e. 90028");
   document.getElementById('searchBox').value = "";
   addGpsListener();
   addSaveFavListener();
   document.getElementById('navinput').checked = false;
+  favoriteCities = JSON.parse(localStorage.getItem('city'));
   if (favoriteCities.length > 0) {
     document.getElementById('favorites').classList.remove('hidden');
+  } else {
+    document.getElementById('favorites').classList.add('hidden');
+    document.getElementById('favheader').classList.add('hidden');
   }
   favoriteListListener();
 };
