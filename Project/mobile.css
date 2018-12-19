@@ -372,16 +372,16 @@ input, button {
 }
 
 .templow {
+  font-size: 1em;
+  grid-column: 3/4;
+  grid-row: 2/3;
+}
+
+.temphigh {
   padding-top: 20px;
   font-size: 1em;
   grid-column: 3/4;
   margin-bottom: 8px;
-}
-
-.temphigh {
-  font-size: 1em;
-  grid-column: 3/4;
-  grid-row: 2/3;
 }
 
 #favorites {

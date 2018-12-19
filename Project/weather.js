@@ -30,9 +30,13 @@ function favsFirst() {
   clearDiv('localfavs');
   loadFavs();
   for (let i = 0; i < favoriteCities.length; i++) {
-    addElement('localfavs', 'city' + i, 'favsmain', favoriteCities[i].cityName, 'div')
+    //function addElement(div, id, className, value, elementType);
+    addElement('localfavs', 'city' + i, 'favsmain', null, 'div')
+    addElement('city' + i, 'favoriteList' + i, 'favoriteList', favoriteCities[i].cityName + " ", 'span');
+    addElement('city' + i, 'zipList' + i, 'zipList', favoriteCities[i].zipCode, 'span');
+    //addElement('favsmain', 'ziplist' + i, 'ziplist', , 'span')
     addElement('favmenu', 'citymenu' + i, 'favsmenu', favoriteCities[i].cityName, 'li')
-    addElement('citymenu' + i, 'zipmenu' + i, 'hidden', favoriteCities[i].zipCode, 'span')
+    addElement('citymenu' + i, 'zipmenu' + i, 'zipmenu', favoriteCities[i].zipCode, 'span')
   }
   if (favoriteCities.length <= 0) {
     document.getElementById('favorites').classList.add('hidden');
@@ -371,6 +375,8 @@ function addCustomIndex(index) {
   let cLoc = document.getElementById('currentIndex').innerHTML;
   if (cLoc == 'gps') {
     document.getElementById('leftArrow').classList.add('hidden');
+  } else if (cLoc > 0) {
+    document.getElementById('leftArrow').classList.remove('hidden');
   }
   if (favoriteCities.length < 1 || index >= favoriteCities.length - 1) {
     document.getElementById('rightArrow').classList.add('hidden');
@@ -391,6 +397,9 @@ function searchLocationWeather() {
 };
 
 function favoriteCurrentWeather(favoriteZip, index) {
+  currentZipCode = favoriteZip;
+  currentCardIndex = index;
+  currentCardNum = index;
   favCityWeather(favoriteZip)
     .then(searchResult => getForecastUrl(searchResult))
     .then(result => getRequest(result))
@@ -429,6 +438,7 @@ function addFavorite(index) {
       array = JSON.parse(localStorage.getItem('city'));
       array[array.length] = new newFavorite(city, zip);
       localStorage.setItem('city', JSON.stringify(array));
+      favoriteCities = JSON.parse(localStorage.getItem('city'));
     } else {
       array = JSON.parse(localStorage.getItem('city'));
       array.splice(checkedValue, 1);
@@ -651,6 +661,7 @@ function reloadmainpage() {
   addSaveFavListener();
   document.getElementById('navinput').checked = false;
   document.getElementById('favorites').classList.remove('hidden');
+  favoriteListListener();
 };
 
 function menuFavoriteSearch() {
@@ -712,6 +723,36 @@ function rightListener() {
   }
 }
 
+function zipMenuListener() {
+  let zipMenuItem = document.getElementsByClassName('zipmenu');
+  let favMenuItem = document.getElementsByClassName('favmenu');
+  for (let i = 0; i < favMenuItem.length; i++) {
+    let zip = zipMenuItem[i].innerHTML;
+    favMenuItem[i].addEventListener('touch', function() {
+      favoriteCurrentWeather(zip, i);
+    })
+    favMenuItem[i].addEventListener('click', function() {
+      favoriteCurrentWeather(zip, i);
+    })
+  }
+}
+
+function favoriteListListener() {
+  let favListItem = document.getElementsByClassName('favoriteList');
+  let zipListItem = document.getElementsByClassName('zipList');
+  for (let i = 0; i < favListItem.length; i++) {
+    let zip = zipListItem[i].innerHTML;
+    currentZipCode = zip;
+    let index = checkForFav();
+    favListItem[i].addEventListener('touch', function() {
+      favoriteCurrentWeather(zip, index);
+    })
+    favListItem[i].addEventListener('click', function() {
+      favoriteCurrentWeather(zip, index);
+    })
+  }
+}
+
 //Flip Cards
 function flipCardLeft() {
   currentCardIndex = document.getElementById('currentIndex').innerHTML;
@@ -762,3 +803,4 @@ addGpsListener();
 leftListener();
 rightListener();
 addSaveFavListener();
+favoriteListListener();
